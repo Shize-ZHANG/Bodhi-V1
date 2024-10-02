@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - '**'
+  pull request:
+    branches: ["master"]
   workflow_dispatch:
 
 jobs:
