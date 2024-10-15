@@ -5,5 +5,5 @@
 /**
  * @ author jojo
  * @ date 2024/10/13
- * @ description:用于渲染Markdowm文件的工具包主页面
+ * @ description:解析和转换输入字符串（如 Markdown 语法），并支持通过可选参数自定义解析行为。
  */
