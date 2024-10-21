@@ -55,9 +55,17 @@ export default {
   setup (props) {
     const items = ref([])
 
-    window.menuAPI.setAppMenu((e, menuItems) => {
-      items.value = menuItems
-    })
+    // window.menuAPI.setAppMenu((e, menuItems) => {
+    //   items.value = menuItems
+    // })
+
+    if (typeof window.menuAPI !== 'undefined' && typeof window.menuAPI.setAppMenu !== 'undefined') {
+      window.menuAPI.setAppMenu((e, menuItems) => {
+        items.value = menuItems
+      })
+    } else {
+      console.warn('setAppMenu is not available in this environment')
+    }
 
     const secondItems = ref([{}])
     const secondShow = ref(false)

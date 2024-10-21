@@ -158,7 +158,9 @@ export default {
       return store.getters.getMode
     })
 
-    const hiddenHeaderButton = !window.electronAPI.isOSx()
+    // const hiddenHeaderButton = !window.electronAPI.isOSx()
+
+    const hiddenHeaderButton = typeof window.electronAPI !== 'undefined' && window.electronAPI.isOSx()
 
     const tabListOverflow = ref(false)
     const popoverShow = ref(false)

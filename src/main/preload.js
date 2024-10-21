@@ -97,6 +97,12 @@ contextBridge.exposeInMainWorld('pathAPI', {
   isFileInDirectory
 })
 
-contextBridge.exposeInMainWorld('menuAPI', {
-  setAppMenu: (callback) => ipcRenderer.on('set-app-menu', callback)
-})
+// contextBridge.exposeInMainWorld('menuAPI', {
+//   setAppMenu: (callback) => ipcRenderer.on('set-app-menu', callback)
+// })
+
+if (typeof process !== 'undefined' && process.type === 'renderer') {
+  contextBridge.exposeInMainWorld('menuAPI', {
+    setAppMenu: (callback) => ipcRenderer.on('set-app-menu', callback)
+  });
+}
