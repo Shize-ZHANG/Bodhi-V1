@@ -219,13 +219,16 @@ const actions = {
     })
   },
   LISTEN_KEYBOARD_EVENT ({ commit }) {
-    window.electronAPI.keyboardEvent((e, meta) => {
-      executeCommand(state, meta.id, meta)
-    })
+    // window.electronAPI.keyboardEvent((e, meta) => {
+    //   executeCommand(state, meta.id, meta)
+    // })
+    console.log('11111111111')
     bus.on('cmd::execute', ({ id, meta }) => {
+      console.log('1234567')
       executeCommand(state, id, meta)
     })
   },
+
   LISTEN_LOAD_PREFERENCES ({ commit }) {
     window.electronAPI.loadPreferences((e, preferences) => {
       commit('LOAD_PREFERENCES', preferences)
