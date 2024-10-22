@@ -67,9 +67,6 @@ export default {
   width: 300px;
 }
 
-
-
-
 /* 表单组样式 */
 .form-group {
   margin-bottom: 20px;
