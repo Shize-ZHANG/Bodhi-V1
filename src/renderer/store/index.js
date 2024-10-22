@@ -1,14 +1,14 @@
 import { bus } from 'vue3-eventbus'
 import { createStore } from 'vuex'
 import files from './files'
-import commands from '../commands'
+// import commands from '../commands'
 import { modifiableKeybindingsMap } from '../../common/keybindings'
-const executeCommand = (state, eventId, meta) => {
-  const command = commands.filter(e => e.id === eventId)
-  if (command[0]) {
-    command[0].execute(meta)
-  }
-}
+// const executeCommand = (state, eventId, meta) => {
+//   const command = commands.filter(e => e.id === eventId)
+//   if (command[0]) {
+//     command[0].execute(meta)
+//   }
+// }
 
 const state = {
   xy: {
@@ -206,39 +206,39 @@ const actions = {
       graphTheme: state.ficus.graphSetting.theme
     }
     window.electronAPI.setPreferences(preferences)
-  },
-  LISTEN_REFRESH ({ commit }) {
-    window.electronAPI.passiveRefresh((e, value) => {
-      commit('REFRESH', value)
-      commit('endLoading')
-    })
-  },
-  LISTEN_OPEN_FILE_TAB ({ commit }) {
-    window.electronAPI.openFileTab((e, filepath) => {
-      commit('OPEN_FILE_TAB', filepath)
-    })
-  },
-  LISTEN_KEYBOARD_EVENT ({ commit }) {
-    // window.electronAPI.keyboardEvent((e, meta) => {
-    //   executeCommand(state, meta.id, meta)
-    // })
-    console.log('11111111111')
-    bus.on('cmd::execute', ({ id, meta }) => {
-      console.log('1234567')
-      executeCommand(state, id, meta)
-    })
-  },
-
-  LISTEN_LOAD_PREFERENCES ({ commit }) {
-    window.electronAPI.loadPreferences((e, preferences) => {
-      commit('LOAD_PREFERENCES', preferences)
-    })
-  },
-  LISTEN_LOAD_KEYBINDINGS ({ commit }) {
-    window.electronAPI.loadKeybindingsMap((e, keybindings) => {
-      commit('LOAD_KEYBINDINGS', keybindings)
-    })
   }
+  // LISTEN_REFRESH ({ commit }) {
+  //   window.electronAPI.passiveRefresh((e, value) => {
+  //     commit('REFRESH', value)
+  //     commit('endLoading')
+  //   })
+  // },
+  // LISTEN_OPEN_FILE_TAB ({ commit }) {
+  //   window.electronAPI.openFileTab((e, filepath) => {
+  //     commit('OPEN_FILE_TAB', filepath)
+  //   })
+  // },
+  // LISTEN_KEYBOARD_EVENT ({ commit }) {
+  //   // window.electronAPI.keyboardEvent((e, meta) => {
+  //   //   executeCommand(state, meta.id, meta)
+  //   // })
+  //   console.log('11111111111')
+  //   bus.on('cmd::execute', ({ id, meta }) => {
+  //     console.log('1234567')
+  //     executeCommand(state, id, meta)
+  //   })
+  // },
+
+  // LISTEN_LOAD_PREFERENCES ({ commit }) {
+  //   window.electronAPI.loadPreferences((e, preferences) => {
+  //     commit('LOAD_PREFERENCES', preferences)
+  //   })
+  // },
+  // LISTEN_LOAD_KEYBINDINGS ({ commit }) {
+  //   window.electronAPI.loadKeybindingsMap((e, keybindings) => {
+  //     commit('LOAD_KEYBINDINGS', keybindings)
+  //   })
+  // }
 }
 
 const getters = {

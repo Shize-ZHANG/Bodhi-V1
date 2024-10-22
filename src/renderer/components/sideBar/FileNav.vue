@@ -20,6 +20,7 @@
               class="openFolderBtn">
         打开文件夹
       </button>
+      <!-- <input type="file" class="openFolderBtn"> -->
     </div>
   </div>
 </template>

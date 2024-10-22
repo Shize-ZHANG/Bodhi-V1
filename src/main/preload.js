@@ -104,5 +104,5 @@ contextBridge.exposeInMainWorld('pathAPI', {
 if (typeof process !== 'undefined' && process.type === 'renderer') {
   contextBridge.exposeInMainWorld('menuAPI', {
     setAppMenu: (callback) => ipcRenderer.on('set-app-menu', callback)
-  });
+  })
 }
