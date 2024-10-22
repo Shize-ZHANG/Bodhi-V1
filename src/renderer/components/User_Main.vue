@@ -1,12 +1,11 @@
 <template>
   <div id="app" :style="{ height: windowHeight }">
     <router-view />  <!-- 这里渲染匹配的路由组件 -->
-    <UserLogin />  <!-- 使用 UserLogin 组件 -->
-<!--    <MyHeader :data="data" style="width: 100%"></MyHeader>-->
-<!--    <div style="display: flex; height: 100%; width: 100%; position: relative">-->
-<!--      <SideBar :data="data" style="height: 100%; position: fixed;" :style="{ height: windowHeight }"></SideBar>-->
-<!--      <TextArea class="myTextArea" :style="{ height: windowHeight }"></TextArea>-->
-<!--    </div>-->
+        <MyHeader :data="data" style="width: 100%"></MyHeader>
+        <div style="display: flex; height: 100%; width: 100%; position: relative">
+          <SideBar :data="data" style="height: 100%; position: fixed;" :style="{ height: windowHeight }"></SideBar>
+          <TextArea class="myTextArea" :style="{ height: windowHeight }"></TextArea>
+        </div>
     <div class="dialog text-white px-6 py-4 border-0 rounded bg-pink-500 z-50 shadow-lg transition-all" v-if="myAlert">
       <span class="text-xl inline-block mr-5 align-middle">
         <div class="mr-3">
@@ -61,18 +60,17 @@
 <script>
 
 import { getCurrentInstance, onMounted, ref, watch } from 'vue'
-// import MyHeader from '@/renderer/components/header/MyHeader'
-// import SideBar from '@/renderer/components/sideBar/SideBar'
-// import TextArea from '@/renderer/components/textArea/TextArea'
+import MyHeader from '@/renderer/components/header/MyHeader'
+import SideBar from '@/renderer/components/sideBar/SideBar'
+import TextArea from '@/renderer/components/textArea/TextArea'
 import bus from 'vue3-eventbus'
 import store from '@/renderer/store'
-import { namifyMarkdownFile } from './utils/pathHelpter'
-import UserLogin from './components/User_Login.vue'
+import { namifyMarkdownFile } from '../utils/pathHelpter'
 
 export default {
-  name: 'App',
-  // components: { SideBar, MyHeader, TextArea, UserLogin },
-  components: { UserLogin },
+  name: 'UserMain',
+  components: { SideBar, MyHeader, TextArea },
+
   setup () {
     let pathSeq = ''
     const data = ref([])
