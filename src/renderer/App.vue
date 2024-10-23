@@ -65,6 +65,7 @@ import TextArea from '@/renderer/components/textArea/TextArea'
 import bus from 'vue3-eventbus'
 import store from '@/renderer/store'
 import { namifyMarkdownFile } from './utils/pathHelpter'
+// import LinkManager from '@/main/filesystem/linkManager'
 
 export default {
   name: 'App',
@@ -101,7 +102,7 @@ export default {
         document.documentElement.style.setProperty('--sideBarInitWidth', store.getters.getCommon.sideBarInitWidth + 'px')
       })
 
-      pathSeq = await window.pathAPI.sep
+      pathSeq = '/'
 
       window.addEventListener('resize', () => {
         windowHeight.value = window.innerHeight + 'px'
@@ -257,9 +258,14 @@ export default {
       data.value.length = 0
     })
 
+    // bus.on('ficus::getCites', async (filePath) => {
+    //   // const { linkManager } = this.getBaseWindowById(BrowserWindow.fromWebContents(e.sender).id)
+    //   const { linkManager } = new LinkManager()
+    //   return linkManager.getCiteInfo(filePath)
+    // })
+
     // Ajax请求
     bus.on('cmd::execute', ({ id, meta }) => {
-      console.log('ljkfdlajg;jhg;lajh;')
       // executeCommand(state, id, meta)
 
       async function fetchUserFiles (userId) {

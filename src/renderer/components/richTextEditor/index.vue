@@ -84,7 +84,7 @@ import Vditor from 'ficus-editor'
 import 'ficus-editor/dist/index.css'
 import defineRAPI from './defineRAPI.js'
 import bus from 'vue3-eventbus'
-import { viditorFormatAccelerator } from '@/common/keybindings'
+// import { viditorFormatAccelerator } from '@/common/keybindings'
 
 export default {
   name: 'TextUI',
@@ -304,34 +304,34 @@ export default {
       }
     )
 
-    const makeKeybingdingMap = (keybindingMap) => {
-      const newKeybinding = []
-      for (const [id, accelerator] of keybindingMap) {
-        if (accelerator) {
-          if (window.electronAPI.isOSx()) {
-            newKeybinding.push({
-              hotkey: viditorFormatAccelerator(accelerator),
-              action: () => {
-                bus.emit('cmd::execute', { id })
-              }
-            })
-          } else {
-            newKeybinding.push({
-              hotkey: viditorFormatAccelerator(accelerator),
-              action: () => {}
-            })
-          }
-        }
-      }
-      return newKeybinding
-    }
+    // const makeKeybingdingMap = (keybindingMap) => {
+    //   const newKeybinding = []
+    //   for (const [id, accelerator] of keybindingMap) {
+    //     if (accelerator) {
+    //       if (window.electronAPI.isOSx()) {
+    //         newKeybinding.push({
+    //           hotkey: viditorFormatAccelerator(accelerator),
+    //           action: () => {
+    //             bus.emit('cmd::execute', { id })
+    //           }
+    //         })
+    //       } else {
+    //         newKeybinding.push({
+    //           hotkey: viditorFormatAccelerator(accelerator),
+    //           action: () => {}
+    //         })
+    //       }
+    //     }
+    //   }
+    //   return newKeybinding
+    // }
 
     // 初始化编辑器
     onMounted(() => {
       nextTick(async () => {
-        let keybindings = []
+        const keybindings = new Map([])
         // macOs快捷键通过menu实现，其他系统通过LocalShortcut实现
-        keybindings = makeKeybingdingMap((await window.electronAPI.getKeybindingsMap()))
+        // keybindings = makeKeybingdingMap((await window.electronAPI.getKeybindingsMap()))
         // 初始化vditor
         initVditor(keybindings)
         // 定义和vditor相关的API, 使用全局事件总线实现

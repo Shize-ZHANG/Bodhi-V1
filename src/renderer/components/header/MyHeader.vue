@@ -170,6 +170,7 @@ export default {
 
     // 打开tab，首先检测目标文件是否已经打开，没打开则将对象计入openFiles
     bus.on('openNewTab', async (obj) => {
+      console.log('abs', obj.url)
       if (contain(obj)) {
         console.log('file already open!')
       } else {
@@ -177,7 +178,7 @@ export default {
         openFiles.value.push({ absolutePath, path, name, type, offset })
         update()
       }
-      store.dispatch('files/setCurrentFile', { filepath: obj.path }).then(() => {
+      store.dispatch('files/setCurrentFile', { url: obj.url }).then(() => {
         obj.content = store.getters['files/markdown']
         if (store.getters.getMode === -1) {
           // 正在展示欢迎界面，默认进入纯文本模式
@@ -232,10 +233,10 @@ export default {
 
     // MindUI接口：MindUI实时将工作区修改保存到content中
     bus.on('saveChangeMindUI', async (json) => {
-      const inDocumentPath = await window.electronAPI.getBuiltInDocumentsPath()
-      if (inDocumentPath.indexOf(curObj.value.path) !== -1) {
-        return
-      }
+      // const inDocumentPath = await window.electronAPI.getBuiltInDocumentsPath()
+      // if (inDocumentPath.indexOf(curObj.value.path) !== -1) {
+      //   return
+      // }
       if (store.getters.getMode === 2) {
         store.commit('files/updateByMind', { mindJson: json.data })
         content.value = store.getters['files/markdown']
@@ -248,10 +249,10 @@ export default {
     // 将前端的content写回后端文件中，并且更新前端容器
     async function writeBack () {
       // 有可能路径不存在
-      const inDocumentPath = await window.electronAPI.getBuiltInDocumentsPath()
-      if (curObj.value.path && inDocumentPath.indexOf(curObj.value.path) === -1) {
-        window.electronAPI.saveFile(curObj.value.path, content.value)
-      }
+      // const inDocumentPath = await window.electronAPI.getBuiltInDocumentsPath()
+      // if (curObj.value.path && inDocumentPath.indexOf(curObj.value.path) === -1) {
+      //   window.electronAPI.saveFile(curObj.value.path, content.value)
+      // }
     }
 
     function handleTabListOverflow (value) {
@@ -297,12 +298,12 @@ export default {
           (async () => {
             bus.emit('setEditorContent', { content: content.value })
           })().then(async () => {
-            const inDocumentPath = await window.electronAPI.getBuiltInDocumentsPath()
-            if (inDocumentPath.indexOf(curObj.value.path) === -1) {
-              bus.emit('setEditable', { enable: true })
-            } else {
-              bus.emit('setEditable', { enable: false })
-            }
+            // const inDocumentPath = await window.electronAPI.getBuiltInDocumentsPath()
+            // if (inDocumentPath.indexOf(curObj.value.path) === -1) {
+            //   bus.emit('setEditable', { enable: true })
+            // } else {
+            //   bus.emit('setEditable', { enable: false })
+            // }
             bus.emit('changeEditMode', { mode: store.getters.getMode })
           }
           )
@@ -314,12 +315,13 @@ export default {
 
     // TextUI接口，更新textUI的展示内容
     bus.on('sendToTextUI', (obj) => {
+      console.log(obj.url)
       // 写回content
       writeBack()
-      store.dispatch('files/setCurrentFile', { filepath: obj.path }).then(() => {
+      store.dispatch('files/setCurrentFile', { url: obj.url }).then(() => {
         content.value = store.getters['files/markdown']
         curObj.value = obj
-        window.electronAPI.changePath(curObj.value.path)
+        // window.electronAPI.changePath(curObj.value.path)
         if (curObj.value.name !== '') {
           getOutLine()
           getTags()
@@ -409,8 +411,11 @@ export default {
     })
 
     async function getCites () {
-      const { citing, cited } = await window.electronAPI.getCites(curObj.value.path)
-      bus.emit('editCites', { citing, cited })
+      // const { citing, cited } = await window.electronAPI.getCites(curObj.value.path)
+      // bus.emit('ficus::getCites', curObj.value.path).then((citing, cited) => {
+      //   bus.emit('editCites', { citing, cited })
+      // })
+      return [new Map(), new Map()]
     }
 
     function getTags () {

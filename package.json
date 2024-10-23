@@ -1,8 +1,8 @@
 {
-  "name": "bodhi_alpha",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
+    "name": "bodhi_alpha",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "test": "mocha --recursive --exit --colors --require @babel/register",
@@ -14,6 +14,7 @@
     },
     "main": "background.js",
     "dependencies": {
+        "browserify-fs": "^1.0.0",
         "chokidar": "^3.5.3",
         "dateformat": "^5.0.3",
         "ficus": "^0.0.4",
@@ -21,6 +22,7 @@
         "html2canvas": "^1.4.1",
         "katex": "^0.16.7",
         "minimatch": "^5.1.1",
+        "path-browserify": "^1.0.1",
         "vatex": "^0.1.0"
     },
     "devDependencies": {
@@ -121,33 +123,31 @@
     "mac": {
         "icon": "build/icon.png",
         "fileAssociations": [
-          {
-            "ext": [
-              "md"
-            ]
-          }
-        ],
-        "extendInfo": {
-          "CFBundleDocumentTypes": [
             {
-              "CFBundleTypeName": "Markdown Document",
-              "CFBundleTypeRole": "Editor",
-              "LSHandlerRank": "Owner",
-              "LSItemContentTypes":
-                [
-                  "com.apple.dt.document.markdown"
-                ]
-            },
-            {
-              "CFBundleTypeName": "Folder",
-              "CFBundleTypeRole": "Viewer",
-              "LSHandlerRank": "None",
-              "LSItemContentTypes":
-                [
-                  "public.folder"
+                "ext": [
+                    "md"
                 ]
             }
-          ]
+        ],
+        "extendInfo": {
+            "CFBundleDocumentTypes": [
+                {
+                    "CFBundleTypeName": "Markdown Document",
+                    "CFBundleTypeRole": "Editor",
+                    "LSHandlerRank": "Owner",
+                    "LSItemContentTypes": [
+                        "com.apple.dt.document.markdown"
+                    ]
+                },
+                {
+                    "CFBundleTypeName": "Folder",
+                    "CFBundleTypeRole": "Viewer",
+                    "LSHandlerRank": "None",
+                    "LSItemContentTypes": [
+                        "public.folder"
+                    ]
+                }
+            ]
         }
     }
 }

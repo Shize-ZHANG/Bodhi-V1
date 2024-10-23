@@ -173,8 +173,9 @@ export default {
         curItem.value.curChild = -1
         expanded.value = !expanded.value
 
-        if (props.item.type === 'file' && window.pathAPI.isMarkdownExtname(props.item.path)) {
+        if (props.item.type === 'file') {
           bus.emit('openNewTab', props.item)
+          console.log('props', props.item)
         }
         // 单击会新建一个列表
         bus.emit('newSelected', props.item)

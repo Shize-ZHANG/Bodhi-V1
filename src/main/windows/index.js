@@ -3,6 +3,7 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import path from 'path'
 import { isOsx, isDevelopment } from '../config'
 import BaseWindow from './base'
+import LinkManager from '../filesystem/linkManager'
 
 class WindowsManager {
   constructor (preferences, menu, keyBinding) {
@@ -205,6 +206,7 @@ class WindowsManager {
 
     ipcMain.handle('ficus::getCites', async (e, filePath) => {
       const { linkManager } = this.getBaseWindowById(BrowserWindow.fromWebContents(e.sender).id)
+      // const { linkManager } = new LinkManager()
       return linkManager.getCiteInfo(filePath)
     })
 

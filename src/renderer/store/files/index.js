@@ -108,19 +108,30 @@ const mutations = {
 }
 
 const actions = {
-  async setCurrentFile (context, { filepath, type }) {
-    if (type === 'setting') {
-      bus.emit('changeMode', -1)
-    } else {
-      if (!context.state.trees.containsCached(filepath)) {
-        const res = await window.electronAPI.readFile(filepath)
-        if (res.error !== -1) {
-          context.commit('buildByMarkdownContent', { filepath, content: res.content })
-        } else {
-          console.error(`读取${filepath}失败`)
+  async setCurrentFile (context, { url, type }) {
+    console.log('url:-------1111111', url)
+    try {
+      if (type === 'setting') {
+        bus.emit('changeMode', -1)
+      } else {
+        if (!context.state.trees.containsCached()) {
+          const resp = await fetch(url, {
+            mode: 'cors'
+          })
+          if (!resp.ok) {
+            throw new Error('Network response was not OK')
+          }
+          const res = await resp.text()
+          if (res.error !== -1) {
+            context.commit('buildByMarkdownContent', { url, content: res })
+          } else {
+            console.error(`读取${url}失败`)
+          }
         }
+        context.commit('setCurrentFile', url)
       }
-      context.commit('setCurrentFile', filepath)
+    } catch (error) {
+      console.error('Error fetching markdown file', error)
     }
   },
 
@@ -139,32 +150,32 @@ const actions = {
       }
     }
     context.commit('updateForest', files)
-  },
-
-  LISTEN_FILE_MOVE ({ commit }) {
-    window.electronAPI.setFilePathByMove((e, pathInfo) => {
-      commit('move', pathInfo)
-    })
-  },
-
-  LISTEN_SET_FOCUS_ID_BY_NAME ({ commit }) {
-    window.electronAPI.setFocusIdByName((e, name) => {
-      setTimeout(() => commit('queryNodeId', { name }), 300)
-    })
-  },
-
-  LISTEN_FILE_CHANGED ({ state, commit }) {
-    window.electronAPI.listenFileChanged(async (e, filepath) => {
-      if (state.trees.containsCached(filepath)) {
-        const res = await window.electronAPI.readFile(filepath)
-        if (res.error !== -1) {
-          commit('updateByMarkdown', { filepath, content: res.content })
-        } else {
-          console.error(`读取${filepath}失败`)
-        }
-      }
-    })
   }
+
+  // LISTEN_FILE_MOVE ({ commit }) {
+  //   window.electronAPI.setFilePathByMove((e, pathInfo) => {
+  //     commit('move', pathInfo)
+  //   })
+  // },
+
+  // LISTEN_SET_FOCUS_ID_BY_NAME ({ commit }) {
+  //   window.electronAPI.setFocusIdByName((e, name) => {
+  //     setTimeout(() => commit('queryNodeId', { name }), 300)
+  //   })
+  // },
+
+  // LISTEN_FILE_CHANGED ({ state, commit }) {
+  //   window.electronAPI.listenFileChanged(async (e, filepath) => {
+  //     if (state.trees.containsCached(filepath)) {
+  //       const res = await window.electronAPI.readFile(filepath)
+  //       if (res.error !== -1) {
+  //         commit('updateByMarkdown', { filepath, content: res.content })
+  //       } else {
+  //         console.error(`读取${filepath}失败`)
+  //       }
+  //     }
+  //   })
+  // }
 }
 
 const getters = {
