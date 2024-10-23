@@ -8,36 +8,54 @@
           <input type="text" v-model="username" required />
         </div>
         <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" v-model="email" required />
-        </div>
-        <div class="form-group">
           <label for="password">Password:</label>
           <input type="password" v-model="password" required />
         </div>
         <button type="submit" class="register-button">Register</button>
       </form>
+      <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
       <button @click="goToLogin">Back to Login</button>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'UserRegister',
   data () {
     return {
       username: '',
-      email: '',
-      password: ''
+      password: '',
+      errorMessage: ''
     }
   },
   methods: {
-    submitRegister () {
-      // 处理注册逻辑
-      console.log('Username:', this.username)
-      console.log('Email:', this.email)
-      console.log('Password:', this.password)
+    async submitRegister () {
+      try {
+        // 发送注册请求到后端 API
+        // console.log(this.username, this.password)
+        const response = await axios.post('http://localhost:8080/register', {
+          username: String(this.username),
+          password: String(this.password)
+        })
+        console.log(response.data)
+        // 处理响应
+        if (response.data.message === 'User registered successfully') {
+          // 注册成功，显示成功消息并跳转到登录页面
+          this.successMessage = 'Registration successful. Redirecting to login...'
+          setTimeout(() => {
+            this.$router.push('/')
+          }, 2000)
+        } else {
+          // 注册失败，显示错误信息
+          this.errorMessage = response.data.message || 'Registration failed. Please try again.'
+        }
+      } catch (error) {
+        // 捕获错误并处理
+        this.errorMessage = 'An error occurred during registration. Please try again.'
+        console.error('Registration error:', error)
+      }
     },
     goToLogin () {
       // 跳转到登录页面

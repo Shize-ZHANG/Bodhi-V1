@@ -10,10 +10,11 @@
         <div class="form-group">
           <label for="password">Password:</label>
           <input type="password" v-model="password" required />
+          <button type="submit" class="login-button" @click="submitLogin">Login</button>
         </div>
 
       </form>
-      <button class="login-button" @click="goToMain">Login</button>
+      <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
       <!-- 注册按钮 -->
       <button class="register-button" @click="goToRegister">Register</button>
     </div>
@@ -21,26 +22,45 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'UserLogin',
   data () {
     return {
       username: '',
-      password: ''
+      password: '',
+      errorMessage: ''
     }
   },
   methods: {
-    submitLogin () {
-      // 登录逻辑
-      console.log('Username:', this.username)
-      console.log('Password:', this.password)
+    async submitLogin () {
+      try {
+        // 发送登录请求到后端 API
+        const response = await axios.post('http://localhost:8080/login', {
+          username: String(this.username),
+          password: String(this.password)
+        })
+        // 处理响应
+        if (!response.data.error) {
+          this.$store.dispatch('updateUsername', this.username)
+          console.log(this.$store.getters.getUsername)
+          // 登录成功，跳转到主页面
+          this.$router.push('/main')
+        } else {
+          // 登录失败，显示错误信息
+          console.log('debug')
+          this.errorMessage = response.data.error || 'Login failed. Please try again.'
+        }
+      } catch (error) {
+        // 捕获错误并处理
+        this.errorMessage = 'An error occurred while logging in. Please try again.'
+        console.log('12345')
+        console.error('Login error:', error)
+      }
     },
     goToRegister () {
       // 跳转到注册页面的逻辑
       this.$router.push('/register')// 假设你使用 Vue Router 进行页面导航
-    },
-    goToMain () {
-      this.$router.push('/main')
     }
   }
 }
