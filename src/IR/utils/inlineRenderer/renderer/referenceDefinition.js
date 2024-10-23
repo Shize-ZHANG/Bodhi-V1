@@ -1,6 +1,6 @@
 import { CLASS_NAMES } from '@/config'
 
-export default function referenceDefinition (h, cursor, block, token, outerClass) {
+export default function referenceDefinition (h, cursor, block, token) {
   const className = CLASS_NAMES.MU_REFERENCE_MARKER
   const {
     leftBracket,
