@@ -165,6 +165,7 @@ export default {
         father.value = obj.father
         mode = 0
         openModal()
+        console.log('7777777777')
       })
 
       bus.on('showDialogForRenameFile', (obj) => {
@@ -254,6 +255,48 @@ export default {
     // 关闭文件夹
     bus.on('closeDir', () => {
       data.value.length = 0
+    })
+
+    // Ajax请求
+    bus.on('cmd::execute', ({ id, meta }) => {
+      console.log('ljkfdlajg;jhg;lajh;')
+      // executeCommand(state, id, meta)
+
+      async function fetchUserFiles (userId) {
+        try {
+          const response = await fetch(`http://localhost:8080/file/${userId}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+
+          const data1 = await response.json() // 解析 JSON 响应
+          console.log(data1) // 打印服务器返回的结果
+
+          if (response.status === 200) {
+            console.log('User files:', data1.files) // 假设后端返回的文件信息在 data.files 中
+          } else {
+            console.error('Error fetching user files:', response.status)
+          }
+          const openDir = [{
+            name: data1[0].name,
+            path: data1[0].path,
+            children: data1[0].children,
+            curChild: -1,
+            absolutePath: data1[0].absolutePath,
+            offset: -1,
+            type: 'folder'
+          }]
+          bus.emit('openDir', openDir[0])
+        } catch (error) {
+          console.error('Error fetching data:', error)
+          // 处理错误，比如显示提示消息给用户
+        }
+      }
+
+      // 调用函数，并传递 userId
+      fetchUserFiles(1) // 假设 userId 是 12345
     })
 
     function nameValidTest (name) {
