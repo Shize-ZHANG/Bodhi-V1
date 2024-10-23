@@ -76,9 +76,9 @@ class KeyBinding extends EventEmitter {
     }
   }
 
-  getKeybindingsMap () {
-    return this._keys
-  }
+  // getKeybindingsMap () {
+  //   return this._keys
+  // }
 
   disableAll (win) {
     if (isOsx) {

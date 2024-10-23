@@ -7,10 +7,10 @@ class LinkManager {
   /**
    * 管理tag和cites
    */
-  constructor (win, watcher) {
+  constructor () {
     this.reset()
-    this.win = win
-    this.watcher = watcher
+    // this.win = win
+    // this.watcher = watcher
   }
 
   reset () {

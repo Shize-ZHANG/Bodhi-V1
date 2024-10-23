@@ -5,7 +5,7 @@ const request = require('request')
 const progress = require('request-progress')
 const admZip = require('adm-zip')
 const fs = require('fs')
-const crypto = require('crypto')
+// const crypto = require('crypto')
 const semverDiff = require('semver-diff')
 const log = require('electron-log')
 
@@ -71,10 +71,11 @@ const Updater = {
    * Sha1
    * */
   sha1: function (buffer) {
-    const fsHash = crypto.createHash('sha1')
-    fsHash.update(buffer)
-    const sha1 = fsHash.digest('hex')
-    return sha1
+    // const fsHash = crypto.createHash('sha1')
+    // fsHash.update(buffer)
+    // const sha1 = fsHash.digest('hex')
+    // return sha1
+    return buffer
   },
 
   /**

@@ -86,10 +86,52 @@ const commands = [
   {
     id: 'file.open-file',
     execute: async () => {
-      const files = await window.electronAPI.openFile()
-      for (const file of files) {
-        bus.emit('openNewTab', file)
+      // const files = await window.electronAPI.openFile()
+      // for (const file of files) {
+      //   bus.emit('openNewTab', file)
+      // }
+
+      // ajax请求文件内容
+      async function fetchReadUserFiles (userId) {
+        try {
+          const response = await fetch(`http://localhost:8080/file/${userId}`, { // fetch的URL需要换
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+
+          const data1 = await response.json() // 解析 JSON 响应
+          console.log(data1) // 打印服务器返回的结果
+
+          if (response.status === 200) {
+            console.log('User files:', data1.files) // 假设后端返回的文件信息在 data.files 中
+          } else {
+            console.error('Error fetching user files:', response.status)
+          }
+          const file = {
+            name: data1.name,
+            // path: path.join(father.value.path, fileName.value),
+            path: data1.path,
+            children: [],
+            curChild: -1,
+            content: '',
+            absolutePath: data1.absolutePath,
+            offset: -1,
+            type: data1.type
+          }
+    
+          bus.emit('openNewTab', file)
+        } catch (error) {
+          console.error('Error fetching data:', error)
+          // 处理错误，比如显示提示消息给用户
+        }
       }
+
+      // 调用函数，并传递 userId
+      fetchReadUserFiles(1) // 假设 userId 是 12345
+
+      
     }
   },
   {
