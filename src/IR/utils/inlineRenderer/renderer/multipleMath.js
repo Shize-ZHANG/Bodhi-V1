@@ -1,6 +1,6 @@
 import { CLASS_NAMES } from '@/config'
 
-export default function multipleMath (h, cursor, block, token, outerClass) {
+export default function multipleMath (h, cursor, block, token) {
   const { start, end } = token.range
   const content = this.highlight(h, block, start, end, token)
 
