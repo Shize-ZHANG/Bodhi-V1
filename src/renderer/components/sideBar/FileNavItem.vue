@@ -105,7 +105,8 @@ import bus from 'vue3-eventbus'
 import { directive, Contextmenu, ContextmenuItem } from 'v-contextmenu'
 import 'v-contextmenu/dist/themes/default.css'
 import { useStore } from 'vuex'
-import { isMarkdownItem } from '@/main/helper-url/fetchUrl'
+// import { isMarkdownExtname } from '@/main/helper/newhelper'
+// import { isMarkdownItem } from '@/main/helper-url/fetchUrl'
 
 export default {
   name: 'FileNavItem',
@@ -174,7 +175,7 @@ export default {
         curItem.value.curChild = -1
         expanded.value = !expanded.value
 
-        if (props.item.type === 'file' && isMarkdownItem(props)) {
+        if (props.item.type === 'file') {
           bus.emit('openNewTab', props.item)
           console.log('props', props.item)
         }

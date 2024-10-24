@@ -55,6 +55,7 @@ function resolvePath (...paths) {
 }
 
 function getBasename (dirPath) {
+  dirPath = decodeURI(dirPath)
   // 移除路径末尾的斜杠（防止空路径被返回）
   dirPath = dirPath.replace(/\/+$/, '')
 

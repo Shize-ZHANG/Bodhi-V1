@@ -121,6 +121,7 @@
 <script>
 import { ref } from 'vue'
 import bus from 'vue3-eventbus'
+import { getBasename } from '@/main/helper/newhelper'
 
 export default {
   name: 'RelationBar',
@@ -152,7 +153,7 @@ export default {
     function toggle (item) {
       const obj = {
         // name: window.pathAPI.basename(item.path),
-        name: item.path.slice(-7),
+        name: getBasename(item.path),
         path: item.path,
         type: 'file',
         offset: -1,

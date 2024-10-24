@@ -118,6 +118,7 @@ import TabList from '@/renderer/components/header/TabList'
 import store from '@/renderer/store'
 import { getRenamePath } from '@/renderer/utils/pathHelpter'
 import LinkManager from '@/main/filesystem/linkManager'
+import { getBasename } from '@/main/helper/newhelper'
 
 export default {
   name: 'MyHeader',
@@ -518,12 +519,12 @@ export default {
           curObj.value.path = getRenamePath(oldPath, newPath, file.path)
           curObj.value.absolutePath = file.path.split(window.pathAPI.sep)
           // curObj.value.name = window.pathAPI.basename(file.path)
-          curObj.value.name = file.path.slice(-7)
+          curObj.value.name = getBasename(file.path)
         }
         file.path = getRenamePath(oldPath, newPath, file.path)
         file.absolutePath = file.path.split(window.pathAPI.sep)
         // file.name = window.pathAPI.basename(file.path)
-        file.name = file.path.slice(-7)
+        file.name = getBasename(file.path)
       }
       update()
     })

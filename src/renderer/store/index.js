@@ -3,6 +3,7 @@ import { createStore } from 'vuex'
 import files from './files'
 // import commands from '../commands'
 import { modifiableKeybindingsMap } from '../../common/keybindings'
+import { getBasename } from '@/main/helper/newhelper'
 // const executeCommand = (state, eventId, meta) => {
 //   const command = commands.filter(e => e.id === eventId)
 //   if (command[0]) {
@@ -106,7 +107,7 @@ const mutations = {
     if (filepath) {
       bus.emit('openNewTab', {
         // name: window.pathAPI.basename(filepath),
-        name: filepath.slice(-7),
+        name: getBasename(filepath),
         path: filepath,
         absolutePath: filepath.split(window.pathAPI.sep),
         type: 'file',

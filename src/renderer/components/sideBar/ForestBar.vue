@@ -40,7 +40,7 @@ import { onMounted, ref } from 'vue'
 import bus from 'vue3-eventbus'
 import store from '@/renderer/store'
 
-import { isMarkdownExtname } from '@/main/helper/newhelper'
+import { getBasename, isMarkdownExtname } from '@/main/helper/newhelper'
 export default {
   name: 'ForestBar',
   components: { ForestItem },
@@ -110,7 +110,7 @@ export default {
           for (let j = 0; j < array.length; j++) {
             res.push({
               // name: window.pathAPI.basename(array[j]),
-              name: array[j].slice(-7),
+              name: getBasename(array[j]),
               path: array[j],
               selected: false,
               type: 'file',
