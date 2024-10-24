@@ -158,6 +158,8 @@ export default {
 
     function getTab (item) {
       if (props.curObj.path !== item.path) {
+        console.log('zkk99_1_2', props.curObj.path)
+        console.log('zkk99_1', item)
         bus.emit('sendToTextUI', item)
         checkTablistOverflow()
       }

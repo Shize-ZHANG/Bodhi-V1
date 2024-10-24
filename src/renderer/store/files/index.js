@@ -107,22 +107,83 @@ const mutations = {
   }
 }
 
+/**
+ * 判断某个文件是markdown后缀
+ * @param {string} filePath
+ */
+function isMarkdownExtname (filePath) {
+  // 检查filePath是否为有效字符串
+  if (typeof filePath !== 'string' || filePath.trim() === '') {
+    console.error('Invalid filePath:', filePath) // 打印错误信息
+    return false // 返回false表示无效
+  }
+  // 获取文件名的最后一个部分
+  const extension = filePath.split('.').pop().toLowerCase() // 将扩展名转换为小写
+  return extension === 'md' || extension === 'markdown'
+}
+
+/**
+ * 判断某个markdown文件可以进行读取(路径存在，为md文件，且大小不超过100KB)
+ * @param {string} filePath
+ */
+async function isValidMarkdownFilePath (filePath) {
+  // 检查文件扩展名是否为 Markdown
+  if (!isMarkdownExtname(filePath)) {
+    return false
+  }
+
+  try {
+    const response = await fetch(filePath, { method: 'HEAD' }) // 使用 HEAD 请求以获取文件大小
+
+    if (!response.ok) {
+      return false // 文件不存在或无法访问
+    }
+
+    const fileSize = Number(response.headers.get('Content-Length')) // 获取文件大小
+    const maxFileSize = 100 * 1024
+    return fileSize <= maxFileSize // 验证文件大小
+  } catch (error) {
+    console.error('Error validating file path:', error)
+    return false // 发生错误，返回 false
+  }
+}
+
+export const readFile = async (filePath) => {
+  if (await isValidMarkdownFilePath(filePath)) {
+    try {
+      const response = await fetch(filePath)
+
+      if (!response.ok) {
+        throw new Error('网络错误或文件无法访问')
+      }
+      console.log('zkk3', response)
+      const content = await response.text() // 将响应内容读取为文本
+      console.log('zkk3', content)
+      return { error: 0, content }
+    } catch (error) {
+      console.error(error.message)
+      alert('读取文件失败: ' + error.message)
+      return { error: -1, content: '' }
+    }
+  } else {
+    alert('不合法的Markdown文件路径或者文件大小>100kb')
+    return { error: -1, content: '' }
+  }
+}
+
 const actions = {
   async setCurrentFile (context, { url, type }) {
     try {
       if (type === 'setting') {
         bus.emit('changeMode', -1)
       } else {
-        if (!context.state.trees.containsCached()) {
-          const resp = await fetch(url, {
-            mode: 'cors'
-          })
-          if (!resp.ok) {
-            throw new Error('Network response was not OK')
-          }
-          const res = await resp.text()
+        if (!context.state.trees.containsCached(url)) {
+          console.log('zkk2', url)
+          // const res = await window.electronAPI.readFile(url)
+          const res = readFile(url)
+          console.log('zkk4', res)
           if (res.error !== -1) {
-            context.commit('buildByMarkdownContent', { filepath: url, content: res })
+            context.commit('buildByMarkdownContent', { filepath: url, content: (await res).content })
           } else {
             console.error(`读取${url}失败`)
           }
@@ -141,8 +202,9 @@ const actions = {
       if (validFilepaths.indexOf(filepath) !== -1) {
         const file = {
           path: filepath,
-          content: (await window.electronAPI.readFile(filepath)).content
+          content: (await readFile(filepath)).content
         }
+        console.log('zkk5', file.content)
         files.push(file)
       } else {
         files.push({ path: filepath })
