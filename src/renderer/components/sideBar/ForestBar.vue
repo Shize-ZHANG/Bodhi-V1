@@ -39,6 +39,8 @@ import ForestItem from '@/renderer/components/sideBar/ForestItem'
 import { onMounted, ref } from 'vue'
 import bus from 'vue3-eventbus'
 import store from '@/renderer/store'
+
+import { isMarkdownExtname } from '@/main/helper/newhelper'
 export default {
   name: 'ForestBar',
   components: { ForestItem },
@@ -69,7 +71,7 @@ export default {
       }
       const res = []
       for (let i = 0; i < array.length; i++) {
-        if (array[i].type === 'file' && !window.pathAPI.isMarkdownExtname(array[i].path)) {
+        if (array[i].type === 'file' && !isMarkdownExtname(array[i].path)) {
           continue
         }
         const obj = {
@@ -107,7 +109,8 @@ export default {
           const res = []
           for (let j = 0; j < array.length; j++) {
             res.push({
-              name: window.pathAPI.basename(array[j]),
+              // name: window.pathAPI.basename(array[j]),
+              name: array[j].slice(-7),
               path: array[j],
               selected: false,
               type: 'file',

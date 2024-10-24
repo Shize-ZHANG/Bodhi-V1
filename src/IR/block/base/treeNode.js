@@ -1,6 +1,7 @@
 import { buildFrontMatter } from '../factory/buildNode.js'
 import LinkedNode from './linkedList/linkedNode.js'
 import { frontmatterTypeName, headingTypeName, listItemTypeName, listTypeName } from './type/constant.js'
+import { isMarkdownExtname } from '@/main/helper/newhelper'
 
 export default class TreeNode extends LinkedNode {
   /**
@@ -137,7 +138,7 @@ export class RootNode extends TreeNode {
   getSubFiles () {
     const res = []
     this.children.forEach(ch => {
-      if (window.pathAPI.isMarkdownExtname(ch.content.text)) {
+      if (isMarkdownExtname(ch.content.text)) {
         res.push(ch.content.text)
       }
     })

@@ -1,6 +1,7 @@
-import path from 'path'
-import fs from 'fs-extra'
-import { isValidFolderPath, isValidMarkdownFilePath } from '../helper/path'
+// import path from 'path'
+// import fs from 'fs-extra'
+// import { isValidFolderPath, isValidMarkdownFilePath } from '../helper/path'
+import { isValidFolderPath, isValidMarkdownFilePath, resolvePath } from '@/main/helper/newhelper'
 
 export class SearchEngine {
   constructor (dirPath) {
@@ -10,18 +11,19 @@ export class SearchEngine {
   }
 
   async search (token) {
-    for (const filepath of this.files) {
-      const content = await fs.promises.readFile(filepath)
-      if (content.toString().indexOf(token) !== -1) {
-        this.results.push(filepath)
-      }
-    }
+    // for (const filepath of this.files) {
+    //   const content = await fs.promises.readFile(filepath)
+    //   if (content.toString().indexOf(token) !== -1) {
+    //     this.results.push(filepath)
+    //   }
+    // }
   }
 
   _getFilePaths (dirPath) {
-    const subFileOrFolder = fs.readdirSync(dirPath)
+    // const subFileOrFolder = fs.readdirSync(dirPath)
+    const subFileOrFolder = []
     for (const subItem of subFileOrFolder) {
-      const subItemPath = path.resolve(dirPath, subItem)
+      const subItemPath = resolvePath(dirPath, subItem)
       if (isValidFolderPath(subItemPath)) {
         this._getFilePaths(subItemPath)
       } else if (isValidMarkdownFilePath(subItemPath)) {

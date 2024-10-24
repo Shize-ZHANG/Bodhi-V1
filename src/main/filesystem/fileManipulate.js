@@ -2,7 +2,7 @@
 // // import fs from 'fs-extra'
 // import { makeFolderStat, makeMarkdownFileStat } from './statistic'
 // import path from 'path'
-// // import { isValidMarkdownFilePath, isMarkdownExtname } from '../helper/path'
+// // import { isValidMarkdownFilePath, newhelper } from '../helper/path'
 // // import crypto from 'crypto'
 
 // /**
@@ -208,7 +208,7 @@
 // }
 
 // // function normalizeMarkdownFilePath (filePath) {
-// //   if (!isMarkdownExtname(filePath)) {
+// //   if (!newhelper(filePath)) {
 // //     return filePath + '.md'
 // //   }
 // //   return filePath

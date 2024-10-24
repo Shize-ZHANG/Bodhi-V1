@@ -105,7 +105,8 @@ const mutations = {
   OPEN_FILE_TAB (state, filepath) {
     if (filepath) {
       bus.emit('openNewTab', {
-        name: window.pathAPI.basename(filepath),
+        // name: window.pathAPI.basename(filepath),
+        name: filepath.slice(-7),
         path: filepath,
         absolutePath: filepath.split(window.pathAPI.sep),
         type: 'file',

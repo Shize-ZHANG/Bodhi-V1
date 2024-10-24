@@ -151,7 +151,8 @@ export default {
 
     function toggle (item) {
       const obj = {
-        name: window.pathAPI.basename(item.path),
+        // name: window.pathAPI.basename(item.path),
+        name: item.path.slice(-7),
         path: item.path,
         type: 'file',
         offset: -1,
