@@ -174,9 +174,8 @@ export default {
       if (contain(obj)) {
         console.log('file already open!')
       } else {
-        // const { absolutePath, path, name, type, offset, url } = obj
-        // openFiles.value.push({ absolutePath, path, name, type, offset, url })
-        openFiles.value.push(obj)
+        const { absolutePath, path, name, type, offset, url } = obj
+        openFiles.value.push({ absolutePath, path, name, type, offset, url })
         update()
       }
       console.log('zkk66_2')
