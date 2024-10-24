@@ -102,7 +102,6 @@ const commands = [
           })
 
           const data1 = await response.json() // 解析 JSON 响应
-          console.log(data1) // 打印服务器返回的结果
 
           if (response.status === 200) {
             console.log('User files:', data1.files) // 假设后端返回的文件信息在 data.files 中
@@ -120,7 +119,7 @@ const commands = [
             offset: -1,
             type: data1.type
           }
-    
+
           bus.emit('openNewTab', file)
         } catch (error) {
           console.error('Error fetching data:', error)

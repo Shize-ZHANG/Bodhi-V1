@@ -109,7 +109,6 @@ const mutations = {
 
 const actions = {
   async setCurrentFile (context, { url, type }) {
-    console.log('url:-------1111111', url)
     try {
       if (type === 'setting') {
         bus.emit('changeMode', -1)
@@ -123,7 +122,7 @@ const actions = {
           }
           const res = await resp.text()
           if (res.error !== -1) {
-            context.commit('buildByMarkdownContent', { url, content: res })
+            context.commit('buildByMarkdownContent', { filepath: url, content: res })
           } else {
             console.error(`读取${url}失败`)
           }

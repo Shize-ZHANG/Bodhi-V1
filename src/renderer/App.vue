@@ -166,7 +166,6 @@ export default {
         father.value = obj.father
         mode = 0
         openModal()
-        console.log('7777777777')
       })
 
       bus.on('showDialogForRenameFile', (obj) => {
@@ -278,10 +277,8 @@ export default {
           })
 
           const data1 = await response.json() // 解析 JSON 响应
-          console.log(data1) // 打印服务器返回的结果
-
           if (response.status === 200) {
-            console.log('User files:', data1.files) // 假设后端返回的文件信息在 data.files 中
+            console.log('User files:', data1[0]) // 假设后端返回的文件信息在 data.files 中
           } else {
             console.error('Error fetching user files:', response.status)
           }

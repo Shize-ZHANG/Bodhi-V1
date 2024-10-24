@@ -170,7 +170,6 @@ export default {
 
     // 打开tab，首先检测目标文件是否已经打开，没打开则将对象计入openFiles
     bus.on('openNewTab', async (obj) => {
-      console.log('abs', obj.url)
       if (contain(obj)) {
         console.log('file already open!')
       } else {
@@ -187,7 +186,6 @@ export default {
         bus.emit('sendToTextUI', obj)
         const index = getIndex(obj)
         if (index !== -1) {
-          console.log(index)
           scrollToElement(index)
         }
       }, () => {
@@ -315,7 +313,6 @@ export default {
 
     // TextUI接口，更新textUI的展示内容
     bus.on('sendToTextUI', (obj) => {
-      console.log(obj.url)
       // 写回content
       writeBack()
       store.dispatch('files/setCurrentFile', { url: obj.url }).then(() => {
@@ -592,8 +589,14 @@ export default {
 
     // 返回父对象
     function findFather (file, father) {
+      if (father.children === null) {
+        return {
+          has: false,
+          res: file
+        }
+      }
       for (let i = 0; i < father.children.length; i++) {
-        if (file.path === father.children[i].path) {
+        if (file.id === father.children[i].id) {
           father.curChild = i
           return {
             has: true,
@@ -601,6 +604,7 @@ export default {
           }
         }
         if (father.children[i].type === 'folder') {
+          console.log('递归：', father.children[i])
           const obj = findFather(file, father.children[i])
           if (obj.has) {
             father.curChild = i
@@ -617,6 +621,7 @@ export default {
     // 更新面包屑
     function updateBread () {
       if (props.data.length) {
+        console.log('curObj.value is: ', curObj.value)
         const obj = findFather(curObj.value, props.data[0])
         if (obj.has) {
           curObj.value.curChild = -1
