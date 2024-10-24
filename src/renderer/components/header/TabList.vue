@@ -148,12 +148,13 @@ export default {
     }
 
     function getName (item) {
-      const index = item.absolutePath.length + item.offset
-      let res = item.absolutePath[index]
-      for (let i = index + 1; i <= item.absolutePath.length - 1; i++) {
-        res += '>' + item.absolutePath[i]
-      }
-      return res
+      // const index = item.absolutePath.length + item.offset
+      // let res = item.absolutePath[index]
+      // for (let i = index + 1; i <= item.absolutePath.length - 1; i++) {
+      //   res += '>' + item.absolutePath[i]
+      // }
+      // return res
+      return item.name
     }
 
     function getTab (item) {
