@@ -7,7 +7,7 @@ import {
   matchPathPattern,
   isValidImageFilePath
 } from '../helper/path'
-import { isMarkdownExtname, isValidFolderPath, resolvePath } from '@/main/helper/newhelper'
+import { getBasename, isMarkdownExtname, isValidFolderPath, resolvePath } from '@/main/helper/newhelper'
 
 /**
  *
@@ -18,7 +18,7 @@ function makeMarkdownFileStat (filePath) {
   if (isValidMarkdownFilePath(filePath)) {
     return {
       // name: path.basename(filePath), // 文件名
-      name: filePath.slice(-7),
+      name: getBasename(filePath),
       path: filePath, // 绝对路径
       // absolutePath: filePath.split(path.sep), // 绝对路径数组
       absolutePath: filePath.split('/'),
@@ -43,7 +43,7 @@ function makeFileStat (filePath) {
   if (isValidFilePath(filePath)) {
     return {
       // name: path.basename(filePath), // 文件名
-      name: filePath.slice(-7),
+      name: getBasename(filePath),
       path: filePath, // 绝对路径
       // absolutePath: filePath.split(path.sep), // 绝对路径数组
       absolutePath: filePath.split('/'), // 绝对路径数组
@@ -67,7 +67,7 @@ function makeFileStat (filePath) {
 async function makeFolderStat (dirPath, ignored) {
   if (isValidFolderPath(dirPath)) {
     // const folderName = path.basename(dirPath)
-    const folderName = dirPath.slice(-7)
+    const folderName = getBasename(dirPath)
     // 文件数组
     // const subFileOrFolder = await fs.promises.readdir(dirPath)
     const subFileOrFolder = []
