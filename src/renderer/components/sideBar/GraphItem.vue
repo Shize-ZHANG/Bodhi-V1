@@ -130,7 +130,9 @@ export default {
     }
 
     function getName (path) {
-      return window.pathAPI.basename(path)
+      console.log('path is: ', path)
+      return path
+      // return window.pathAPI.basename(path)
     }
 
     function handle () {

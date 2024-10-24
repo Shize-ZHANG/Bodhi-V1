@@ -3,7 +3,7 @@ import History from '../history/index'
 class IRTree {
   constructor (filepath, doc, options = {}) {
     this.filepath = filepath
-    this.name = window.pathAPI.basename(filepath)
+    this.name = filepath.slice(-7)
     this.root = null
     this.history = new History(this, doc, options)
   }
