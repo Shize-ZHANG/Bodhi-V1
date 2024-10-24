@@ -55,17 +55,22 @@ export default {
   setup (props) {
     const items = ref([])
 
+    bus.on('set-app-menu', (menuItems) => {
+      items.value = menuItems
+      console.log('--------------', items)
+    })
+
     // window.menuAPI.setAppMenu((e, menuItems) => {
     //   items.value = menuItems
     // })
 
-    if (typeof window.menuAPI !== 'undefined' && typeof window.menuAPI.setAppMenu !== 'undefined') {
-      window.menuAPI.setAppMenu((e, menuItems) => {
-        items.value = menuItems
-      })
-    } else {
-      console.warn('setAppMenu is not available in this environment')
-    }
+    // if (typeof window.menuAPI !== 'undefined' && typeof window.menuAPI.setAppMenu !== 'undefined') {
+    //   window.menuAPI.setAppMenu((e, menuItems) => {
+    //     items.value = menuItems
+    //   })
+    // } else {
+    //   console.warn('setAppMenu is not available in this environment')
+    // }
 
     const secondItems = ref([{}])
     const secondShow = ref(false)
@@ -95,8 +100,10 @@ export default {
     // 鼠标移入事件监听
     function mouseIn (layer, index) {
       const op = (layer === 1) ? items.value[index] : (layer === 2) ? secondItems.value[index] : thirdItems.value[index]
+      console.log('op-------')
+      console.log('op-------', op)
 
-      if (op.submenu && op.submenu.length) {
+      if (op && op.submenu && op.submenu.length) {
         if (layer === 1) {
           secondItems.value = op.submenu
           secondShow.value = true
@@ -141,7 +148,7 @@ export default {
      */
 
     bus.on('changeShowMode', (mode) => {
-      if (items.value) {
+      if (items.value && items.value[4] && items.value[4].submenu) {
         const modeArray = items.value[4].submenu
         for (let i = 0; i <= 2; i++) {
           modeArray[i].checked = (i === mode)
@@ -150,7 +157,7 @@ export default {
     })
 
     bus.on('changeShowTypewriterMode', (enable) => {
-      if (items.value) {
+      if (items.value && items.value[4] && items.value[4].submenu) {
         const modeArray = items.value[4].submenu
         modeArray[4].checked = enable // FIXME
       }

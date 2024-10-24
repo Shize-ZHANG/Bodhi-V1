@@ -97,6 +97,6 @@
 // //   isFileInDirectory
 // // })
 
-// // contextBridge.exposeInMainWorld('menuAPI', {
-// //   setAppMenu: (callback) => ipcRenderer.on('set-app-menu', callback)
-// // })
+// contextBridge.exposeInMainWorld('menuAPI', {
+//   setAppMenu: (callback) => ipcRenderer.on('set-app-menu', callback)
+// })
