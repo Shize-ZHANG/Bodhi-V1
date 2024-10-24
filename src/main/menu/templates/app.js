@@ -1,4 +1,4 @@
-import { app } from 'electron'
+// import { app } from 'electron'
 
 export default function (keybindings) {
   return {
@@ -6,8 +6,8 @@ export default function (keybindings) {
     submenu: [
       {
         label: '退出',
-        accelerator: keybindings.getAccelerator('file.quit'),
-        click: app.quit
+        accelerator: keybindings.getAccelerator('file.quit')
+        // click: app.quit
       }
     ]
   }

@@ -1,3 +1,5 @@
+import { isMarkdownExtname } from '@/main/helper/newhelper'
+
 /**
  * subPath是fatherPath的同一路径或文件夹下路径
  * @param {string} fatherPath
@@ -29,7 +31,7 @@ export function getRenamePath (oldPath, newPath, filePath) {
  * @returns
  */
 export function namifyMarkdownFile (fileName) {
-  if (!window.pathAPI.isMarkdownExtname(fileName)) {
+  if (!isMarkdownExtname(fileName)) {
     return fileName.trim() + '.md'
   }
   return fileName.trim()

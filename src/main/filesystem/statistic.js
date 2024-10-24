@@ -1,13 +1,13 @@
-import fs from 'fs-extra'
-import path from 'path'
+// import fs from 'fs-extra'
+// import path from 'path'
 import {
   isValidMarkdownFilePath,
-  isMarkdownExtname,
   isValidFilePath,
-  isValidFolderPath,
+  // isValidFolderPath,
   matchPathPattern,
   isValidImageFilePath
 } from '../helper/path'
+import { isMarkdownExtname, isValidFolderPath, resolvePath } from '@/main/helper/newhelper'
 
 /**
  *
@@ -17,9 +17,11 @@ import {
 function makeMarkdownFileStat (filePath) {
   if (isValidMarkdownFilePath(filePath)) {
     return {
-      name: path.basename(filePath), // 文件名
+      // name: path.basename(filePath), // 文件名
+      name: filePath.slice(-7),
       path: filePath, // 绝对路径
-      absolutePath: filePath.split(path.sep), // 绝对路径数组
+      // absolutePath: filePath.split(path.sep), // 绝对路径数组
+      absolutePath: filePath.split('/'),
       type: 'file',
       isMd: true,
       children: [],
@@ -40,9 +42,11 @@ function makeMarkdownFileStat (filePath) {
 function makeFileStat (filePath) {
   if (isValidFilePath(filePath)) {
     return {
-      name: path.basename(filePath), // 文件名
+      // name: path.basename(filePath), // 文件名
+      name: filePath.slice(-7),
       path: filePath, // 绝对路径
-      absolutePath: filePath.split(path.sep), // 绝对路径数组
+      // absolutePath: filePath.split(path.sep), // 绝对路径数组
+      absolutePath: filePath.split('/'), // 绝对路径数组
       type: 'file',
       isMd: isMarkdownExtname(filePath),
       children: [],
@@ -62,13 +66,15 @@ function makeFileStat (filePath) {
  */
 async function makeFolderStat (dirPath, ignored) {
   if (isValidFolderPath(dirPath)) {
-    const folderName = path.basename(dirPath)
+    // const folderName = path.basename(dirPath)
+    const folderName = dirPath.slice(-7)
     // 文件数组
-    const subFileOrFolder = await fs.promises.readdir(dirPath)
+    // const subFileOrFolder = await fs.promises.readdir(dirPath)
+    const subFileOrFolder = []
     const folderChildren = []
     const fileChildren = []
     for (const subItem of subFileOrFolder) {
-      const subItemPath = path.resolve(dirPath, subItem)
+      const subItemPath = resolvePath(dirPath, subItem)
       if (matchPathPattern(subItemPath, ignored)) {
         continue
       }
@@ -81,7 +87,8 @@ async function makeFolderStat (dirPath, ignored) {
     return {
       name: folderName,
       path: dirPath,
-      absolutePath: dirPath.split(path.sep),
+      // absolutePath: dirPath.split(path.sep),
+      absolutePath: dirPath.split('/'),
       type: 'folder',
       isMd: false,
       children: folderChildren.concat(fileChildren),

@@ -67,6 +67,7 @@ import { getCurrentInstance, onMounted, ref, watch } from 'vue'
 import bus from 'vue3-eventbus'
 import store from '@/renderer/store'
 import { namifyMarkdownFile } from './utils/pathHelpter'
+import LinkManager from '@/main/filesystem/linkManager'
 import UserLogin from './components/User_Login.vue'
 // import LinkManager from '@/main/filesystem/linkManager'
 
@@ -261,11 +262,23 @@ export default {
       data.value.length = 0
     })
 
-    // bus.on('ficus::getCites', async (filePath) => {
-    //   // const { linkManager } = this.getBaseWindowById(BrowserWindow.fromWebContents(e.sender).id)
-    //   const { linkManager } = new LinkManager()
-    //   return linkManager.getCiteInfo(filePath)
-    // })
+    bus.on('ficus::getCites', async (filePath) => {
+      // const { linkManager } = this.getBaseWindowById(BrowserWindow.fromWebContents(e.sender).id)
+      const { linkManager } = LinkManager.getInstance()
+      return linkManager.getCiteInfo(filePath)
+    })
+
+    bus.on('ficus::getTags', async (tagName) => {
+      // const { linkManager } = this.getBaseWindowById(BrowserWindow.fromWebContents(e.sender).id)
+      const linkManager = LinkManager.getInstance()
+      return linkManager.findTags(tagName)
+    })
+
+    bus.on('ficus::getLinks', async () => {
+      // const { linkManager } = this.getBaseWindowById(BrowserWindow.fromWebContents(e.sender).id)
+      const linkManager = await LinkManager.getInstance()
+      return await linkManager.getLinks()
+    })
 
     // Ajax请求
     bus.on('cmd::execute', ({ id, meta }) => {

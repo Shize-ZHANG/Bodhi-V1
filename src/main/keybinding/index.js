@@ -4,12 +4,12 @@ import keybindingsLinux from './keybindingsLinux'
 import keybindingsWindows from './keybindingsWindows'
 import { isLinux, isOsx } from '../config'
 import COMMANDS from '../../common/commands'
-import { BrowserWindow, dialog, ipcMain } from 'electron'
+// import { BrowserWindow, dialog, ipcMain } from 'electron'
 import EventEmitter from 'events'
-import path from 'path'
-import fs from 'fs-extra'
+// import path from 'path'
+// import fs from 'fs-extra'
 import { modifiableKeybindingsMap } from '../../common/keybindings'
-import { userDataPath } from '../environment/appPaths'
+// import { userDataPath } from '../environment/appPaths'
 
 const _normalizeAccelerator = accelerator => {
   return accelerator.toLowerCase()
@@ -44,7 +44,7 @@ const isEqualAccelerator = (a, b) => {
 class KeyBinding extends EventEmitter {
   constructor () {
     super()
-    this.configPath = path.join(userDataPath, 'keybindings.json')
+    // this.configPath = path.join(userDataPath, 'keybindings.json')
     // this._clearUserKeybindings()
     this._keys = this._loadKeybindings()
     for (const id of this._keys.keys()) {
@@ -109,13 +109,13 @@ class KeyBinding extends EventEmitter {
         if (cmdId !== id &&
           !modifiableKeybindingsMap.has(cmdId) &&
           isEqualAccelerator(value, accelerator)) {
-          dialog.showMessageBoxSync({
-            type: 'error',
-            title: '快捷键绑定失败',
-            message: `与已有快捷键${accelerator}冲突`,
-            buttons: ['确定']
-          })
-          this.loadKeybindings(win)
+          // dialog.showMessageBoxSync({
+          //   type: 'error',
+          //   title: '快捷键绑定失败',
+          //   message: `与已有快捷键${accelerator}冲突`,
+          //   buttons: ['确定']
+          // })
+          // this.loadKeybindings(win)
           return
         }
       }
@@ -145,75 +145,75 @@ class KeyBinding extends EventEmitter {
   }
 
   async _saveUserKeybindings () {
-    const { configPath, _keys } = this
-    try {
-      const userKeybindingJson = JSON.stringify(Object.fromEntries(_keys), null, 2)
-      await fs.promises.writeFile(configPath, userKeybindingJson, 'utf8')
-      return true
-    } catch (_) {
-      return false
-    }
+    // const { configPath, _keys } = this
+    // try {
+    //   const userKeybindingJson = JSON.stringify(Object.fromEntries(_keys), null, 2)
+    //   // await fs.promises.writeFile(configPath, userKeybindingJson, 'utf8')
+    //   return true
+    // } catch (_) {
+    //   return false
+    // }
   }
 
   _loadKeybindings () {
-    const defaultKeybindings = this._loadDefaultKeybindings()
-    if (!(fs.existsSync(this.configPath))) {
-      return defaultKeybindings
-    } else {
-      const rawUserKeybindings = JSON.parse(fs.readFileSync(this.configPath, 'utf8'))
-      if (typeof rawUserKeybindings !== 'object') {
-        return defaultKeybindings
-      }
-      const userAccelerators = new Map(defaultKeybindings)
-      for (const key in rawUserKeybindings) {
-        if (defaultKeybindings.has(key)) {
-          const value = rawUserKeybindings[key]
-          if (typeof value === 'string') {
-            userAccelerators.set(key, value)
-          } else {
-            userAccelerators.set(key, defaultKeybindings.get(key))
-          }
-        }
-      }
-      return userAccelerators
-    }
+    // const defaultKeybindings = this._loadDefaultKeybindings()
+    // if (!(fs.existsSync(this.configPath))) {
+    //   return defaultKeybindings
+    // } else {
+    //   const rawUserKeybindings = JSON.parse(fs.readFileSync(this.configPath, 'utf8'))
+    //   if (typeof rawUserKeybindings !== 'object') {
+    //     return defaultKeybindings
+    //   }
+    //   const userAccelerators = new Map(defaultKeybindings)
+    //   for (const key in rawUserKeybindings) {
+    //     if (defaultKeybindings.has(key)) {
+    //       const value = rawUserKeybindings[key]
+    //       if (typeof value === 'string') {
+    //         userAccelerators.set(key, value)
+    //       } else {
+    //         userAccelerators.set(key, defaultKeybindings.get(key))
+    //       }
+    //     }
+    //   }
+    //   return userAccelerators
+    // }
   }
 
   _clearUserKeybindings () {
-    if (fs.existsSync(this.configPath)) {
-      fs.unlinkSync(this.configPath)
-    }
+    // if (fs.existsSync(this.configPath)) {
+    //   fs.unlinkSync(this.configPath)
+    // }
   }
 
   _listenForIpcMain () {
-    ipcMain.handle('get-keybindings-map', (e) => {
-      return this._keys
-    })
-
-    ipcMain.on('disable-all-keybindings', (e) => {
-      const win = BrowserWindow.fromWebContents(e.sender)
-      this.disableAll(win)
-    })
-
-    ipcMain.on('enable-all-keybindings', (e) => {
-      const win = BrowserWindow.fromWebContents(e.sender)
-      this.enableAll(win)
-    })
-
-    ipcMain.on('set-keybinding-item', (e, { id, accelerator }) => {
-      const win = BrowserWindow.fromWebContents(e.sender)
-      this.update(win, id, accelerator)
-    })
-
-    ipcMain.on('clear-user-keybindings', (e) => {
-      this._clearUserKeybindings()
-      dialog.showMessageBoxSync({
-        type: 'none',
-        title: 'Meassage',
-        message: '快捷键设置清除成功，重启生效',
-        buttons: ['确定']
-      })
-    })
+    // ipcMain.handle('get-keybindings-map', (e) => {
+    //   return this._keys
+    // })
+    //
+    // ipcMain.on('disable-all-keybindings', (e) => {
+    //   const win = BrowserWindow.fromWebContents(e.sender)
+    //   this.disableAll(win)
+    // })
+    //
+    // ipcMain.on('enable-all-keybindings', (e) => {
+    //   const win = BrowserWindow.fromWebContents(e.sender)
+    //   this.enableAll(win)
+    // })
+    //
+    // ipcMain.on('set-keybinding-item', (e, { id, accelerator }) => {
+    //   const win = BrowserWindow.fromWebContents(e.sender)
+    //   this.update(win, id, accelerator)
+    // })
+    //
+    // ipcMain.on('clear-user-keybindings', (e) => {
+    //   this._clearUserKeybindings()
+    //   dialog.showMessageBoxSync({
+    //     type: 'none',
+    //     title: 'Meassage',
+    //     message: '快捷键设置清除成功，重启生效',
+    //     buttons: ['确定']
+    //   })
+    // })
   }
 }
 

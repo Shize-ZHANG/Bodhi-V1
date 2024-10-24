@@ -129,7 +129,8 @@ class RootContent extends Content {
     return {
       data: {
         name: this.text,
-        text: window.pathAPI.basename(this.text) || this.typename,
+        // text: window.pathAPI.basename(this.text) || this.typename,
+        text: this.text.length || this.typename,
         type: this.typename
       },
       children: []
