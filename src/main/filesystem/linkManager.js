@@ -1,16 +1,24 @@
-import path from 'path'
-import { addTagToDoc, getLinksInFile, removeTagFromDoc } from '../../common/parseLinks'
-import fs from 'fs-extra'
+// import path from 'path'
+// import { addTagToDoc, getLinksInFile, removeTagFromDoc } from '../../common/parseLinks'
+// import fs from 'fs-extra'
 import { isValidMarkdownFilePath } from '../helper/path'
-import { deleteFolder, move } from '@/main/filesystem/fileManipulate'
+import { getBasename, getDirname, resolvePath } from '@/main/helper/newhelper'
+// import { deleteFolder, move } from '@/main/filesystem/fileManipulate'
 class LinkManager {
   /**
    * 管理tag和cites
    */
+  static instance = null
+
+  /**
+   * 私有构造函数，防止外部通过 `new` 关键字创建新的实例
+   */
   constructor () {
+    if (LinkManager.instance) {
+      return LinkManager.instance
+    }
     this.reset()
-    // this.win = win
-    // this.watcher = watcher
+    LinkManager.instance = this
   }
 
   reset () {
@@ -21,6 +29,13 @@ class LinkManager {
 
     this.citingMap = new Map() // 文件 引用 其他文件
     this.citedMap = new Map() // 文件 被引用 其他文件
+  }
+
+  static getInstance () {
+    if (!LinkManager.instance) {
+      LinkManager.instance = new LinkManager()
+    }
+    return LinkManager.instance
   }
 
   /**
@@ -53,7 +68,7 @@ class LinkManager {
 
       const groups = []
       for (const filePath of attach) {
-        const dirname = path.dirname(filePath)
+        const dirname = getDirname(filePath)
 
         if (groups.length > 0 && groups[groups.length - 1].name === dirname) {
           groups[groups.length - 1].children.push(filePath)
@@ -75,7 +90,7 @@ class LinkManager {
   getFileCiteTraverseInfo (filepath) {
     const { citing, cited } = this.getCiteInfo(filepath)
     return {
-      name: path.basename(filepath),
+      name: getBasename(filepath),
       path: filepath,
       citing: citing.length,
       cited: cited.length,
@@ -202,17 +217,17 @@ class LinkManager {
    * @param {string} filepath
    */
   async addFile (filepath) {
-    if (isValidMarkdownFilePath(filepath) && !this.validFilePaths.has(filepath)) {
-      try {
-        this.validFilePaths.add(filepath)
-        const content = (await fs.promises.readFile(filepath)).toString()
-        const { aerials, tags } = getLinksInFile(content)
-        this._addFileTags(filepath, tags)
-        this._addFileAerials(filepath, aerials)
-      } catch (e) {
-        console.log(e)
-      }
-    }
+    // if (isValidMarkdownFilePath(filepath) && !this.validFilePaths.has(filepath)) {
+    //   try {
+    //     this.validFilePaths.add(filepath)
+    //     const content = (await fs.promises.readFile(filepath)).toString()
+    //     const { aerials, tags } = getLinksInFile(content)
+    //     this._addFileTags(filepath, tags)
+    //     this._addFileAerials(filepath, aerials)
+    //   } catch (e) {
+    //     console.log(e)
+    //   }
+    // }
   }
 
   /**
@@ -220,20 +235,20 @@ class LinkManager {
    *  @returns
    */
   async tagToFolder (tagname, dirPath, filepaths) {
-    const targetPath = path.resolve(dirPath, tagname)
-    if (!fs.existsSync(targetPath)) {
-      await fs.promises.mkdir(targetPath)
-    }
-    for (const filename of filepaths) {
-      const filepath = path.resolve(dirPath, filename)
-      this.removeFile(filepath)
-      const newPath = await move(filepath, targetPath)
-      this.addFile(newPath)
-      this.win.webContents.send('set-file-path-by-move', { oldPath: filepath, newPath })
-      const doc = (await fs.promises.readFile(newPath)).toString()
-      fs.writeFile(newPath, removeTagFromDoc(doc, tagname))
-    }
-    return targetPath
+    // const targetPath = path.resolve(dirPath, tagname)
+    // if (!fs.existsSync(targetPath)) {
+    //   await fs.promises.mkdir(targetPath)
+    // }
+    // for (const filename of filepaths) {
+    //   const filepath = path.resolve(dirPath, filename)
+    //   this.removeFile(filepath)
+    //   const newPath = await move(filepath, targetPath)
+    //   this.addFile(newPath)
+    //   this.win.webContents.send('set-file-path-by-move', { oldPath: filepath, newPath })
+    //   const doc = (await fs.promises.readFile(newPath)).toString()
+    //   fs.writeFile(newPath, removeTagFromDoc(doc, tagname))
+    // }
+    // return targetPath
   }
 
   /**
@@ -242,35 +257,35 @@ class LinkManager {
    * @returns
    */
   async folderToTag (folderPath) {
-    const subFileOrFolder = await fs.promises.readdir(folderPath)
-    const targetPath = path.dirname(folderPath)
-    const tagname = path.basename(folderPath)
-    for (const subItem of subFileOrFolder) {
-      const subItemPath = path.resolve(folderPath, subItem)
-      if (isValidMarkdownFilePath(subItemPath)) {
-        this.removeFile(subItemPath)
-        const newPath = await move(subItemPath, targetPath)
-        this.addFile(newPath)
-        this.win.webContents.send('set-file-path-by-move', { subItemPath, newPath })
-        const doc = (await fs.promises.readFile(newPath)).toString()
-        fs.writeFile(newPath, addTagToDoc(doc, tagname))
-      }
-    }
-    if ((await (fs.promises.readdir(folderPath))).length === 0) {
-      await deleteFolder(folderPath)
-    }
-    return tagname
+    // const subFileOrFolder = await fs.promises.readdir(folderPath)
+    // const targetPath = path.dirname(folderPath)
+    // const tagname = path.basename(folderPath)
+    // for (const subItem of subFileOrFolder) {
+    //   const subItemPath = path.resolve(folderPath, subItem)
+    //   if (isValidMarkdownFilePath(subItemPath)) {
+    //     this.removeFile(subItemPath)
+    //     const newPath = await move(subItemPath, targetPath)
+    //     this.addFile(newPath)
+    //     this.win.webContents.send('set-file-path-by-move', { subItemPath, newPath })
+    //     const doc = (await fs.promises.readFile(newPath)).toString()
+    //     fs.writeFile(newPath, addTagToDoc(doc, tagname))
+    //   }
+    // }
+    // if ((await (fs.promises.readdir(folderPath))).length === 0) {
+    //   await deleteFolder(folderPath)
+    // }
+    // return tagname
   }
 
   async citeToTag (srcFilepath, citeFilepaths) {
-    const tagname = path.parse(srcFilepath).name
-    for (const filePath of citeFilepaths) {
-      if (fs.existsSync(filePath)) {
-        const doc = (await fs.promises.readFile(filePath)).toString()
-        fs.writeFile(filePath, addTagToDoc(doc, tagname))
-      }
-    }
-    return tagname
+    // const tagname = path.parse(srcFilepath).name
+    // for (const filePath of citeFilepaths) {
+    //   if (fs.existsSync(filePath)) {
+    //     const doc = (await fs.promises.readFile(filePath)).toString()
+    //     fs.writeFile(filePath, addTagToDoc(doc, tagname))
+    //   }
+    // }
+    // return tagname
   }
 
   /**
@@ -330,7 +345,7 @@ class LinkManager {
     for (const cited of citeds) {
       newCiteds.push({
         name: cited.name,
-        path: path.resolve(path.dirname(citingPath), cited.path)
+        path: resolvePath(getDirname(citingPath), cited.path)
       })
     }
     this.citingMap.set(citingPath, newCiteds)

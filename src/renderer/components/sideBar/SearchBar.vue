@@ -90,7 +90,8 @@ export default {
     const searchResult = ref([])
 
     function getName (path) {
-      return window.pathAPI.basename(path)
+      return path.slice(-7)
+      // return window.pathAPI.basename(path)
     }
 
     /**
@@ -112,7 +113,8 @@ export default {
 
     function toggle (path) {
       const obj = {
-        name: window.pathAPI.basename(path),
+        // name: window.pathAPI.basename(path),
+        name: path.slice(-7),
         path,
         type: 'file',
         offset: -1,

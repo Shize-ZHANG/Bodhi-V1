@@ -89,6 +89,7 @@ import bus from 'vue3-eventbus'
 import GraphItem from '@/renderer/components/sideBar/GraphItem'
 import { ref, toRaw } from 'vue'
 import store from '@/renderer/store'
+import FileSystem from '@/main/filesystem'
 
 export default {
   name: 'GraphBar',
@@ -151,7 +152,9 @@ export default {
     bus.on('curNode', async (obj) => {
       type.value = obj.category // 当前节点类型：文件夹 0 ，文件 1 ，标签 2
       if (obj.category === 0) {
-        node.value = await window.electronAPI.getFolderStatInGraph(obj.path)
+        // node.value = await window.electronAPI.getFolderStatInGraph(obj.path)
+        const filesystem = FileSystem.getInstance(null)
+        node.value = await filesystem.makeFolderStatInGraph(obj.path)
         for (let i = 0; i < node.value.children.length; i++) {
           node.value.children[i].name = node.value.path
         }

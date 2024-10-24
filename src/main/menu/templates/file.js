@@ -1,5 +1,5 @@
 import { isOsx } from '@/main/config'
-import { app } from 'electron'
+// import { app } from 'electron'
 export default function (keybindings, recentlyUsedDocuments) {
   const fileMenu = {
     label: '文件',
@@ -117,11 +117,11 @@ export default function (keybindings, recentlyUsedDocuments) {
     accelerator: keybindings.getAccelerator('file.quit'),
     visible: !isOsx,
     click (menuItem, browserWindow) {
-      if (isOsx) {
-        app.quit()
-      } else {
-        browserWindow.webContents.send('ficus::keyboard-event', { id: menuItem.id })
-      }
+      // if (isOsx) {
+      //   app.quit()
+      // } else {
+      //   browserWindow.webContents.send('ficus::keyboard-event', { id: menuItem.id })
+      // }
     }
   })
 

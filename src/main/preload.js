@@ -1,6 +1,6 @@
 // import { contextBridge, ipcRenderer } from 'electron'
 // import fs from 'fs-extra'
-// import { isFileInDirectory, isMarkdownExtname } from './helper/path'
+// import { isFileInDirectory, newhelper } from './helper/path'
 // import { isOsx } from './config'
 // import path from 'path-browserify'
 
@@ -92,7 +92,7 @@
 // //   relative: path.relative,
 // //   basename: path.basename,
 // //   existSync: fs.pathExistsSync,
-// //   isMarkdownExtname,
+// //   newhelper,
 // //   sep: path.sep,
 // //   isFileInDirectory
 // // })

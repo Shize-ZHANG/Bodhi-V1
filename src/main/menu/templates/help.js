@@ -1,5 +1,6 @@
-import path from 'path'
+// import path from 'path'
 import { getBuiltInDocumentsPath } from '../config'
+import { getFileNameWithoutExt } from '@/main/helper/newhelper'
 
 export default function (keybindings) {
   const viewMenu = {
@@ -21,7 +22,8 @@ export default function (keybindings) {
   const pathnames = getBuiltInDocumentsPath()
 
   pathnames.forEach(pathname => {
-    const label = path.parse(pathname).name
+    // const label = path.parse(pathname).name
+    const label = getFileNameWithoutExt(pathname)
     builtInFileMenuItem.submenu.push({
       label,
       id: 'file.open-file-by-path',

@@ -117,6 +117,7 @@ import ModeChoose from '@/renderer/components/header/ModeChoose'
 import TabList from '@/renderer/components/header/TabList'
 import store from '@/renderer/store'
 import { getRenamePath } from '@/renderer/utils/pathHelpter'
+import LinkManager from '@/main/filesystem/linkManager'
 
 export default {
   name: 'MyHeader',
@@ -437,7 +438,10 @@ export default {
     }
 
     bus.on('changeToGraph', async () => {
-      const info = await window.electronAPI.getLinks()
+      // bus.emit('ficus::getLinks')
+      // const info = await window.electronAPI.getLinks()
+      const linkManager = await LinkManager.getInstance()
+      const info = await linkManager.getLinks()
       info.files = props.data[0]
       store.commit('files/buildGraph', info)
       bus.emit('getNodeAndLink', {
@@ -513,11 +517,13 @@ export default {
         if (file.path === curObj.value.path) {
           curObj.value.path = getRenamePath(oldPath, newPath, file.path)
           curObj.value.absolutePath = file.path.split(window.pathAPI.sep)
-          curObj.value.name = window.pathAPI.basename(file.path)
+          // curObj.value.name = window.pathAPI.basename(file.path)
+          curObj.value.name = file.path.slice(-7)
         }
         file.path = getRenamePath(oldPath, newPath, file.path)
         file.absolutePath = file.path.split(window.pathAPI.sep)
-        file.name = window.pathAPI.basename(file.path)
+        // file.name = window.pathAPI.basename(file.path)
+        file.name = file.path.slice(-7)
       }
       update()
     })
@@ -649,7 +655,6 @@ export default {
           }
         }
         if (father.children[i].type === 'folder') {
-          console.log('递归：', father.children[i])
           const obj = findFather(file, father.children[i])
           if (obj.has) {
             father.curChild = i
@@ -666,7 +671,6 @@ export default {
     // 更新面包屑
     function updateBread () {
       if (props.data.length) {
-        console.log('curObj.value is: ', curObj.value)
         const obj = findFather(curObj.value, props.data[0])
         if (obj.has) {
           curObj.value.curChild = -1

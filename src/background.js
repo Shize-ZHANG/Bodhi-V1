@@ -14,10 +14,11 @@ import {
 } from './main/filesystem/fileManipulate'
 import updater from './main/update'
 
-import path from 'path'
+// import path from 'path'
 import * as url from 'url'
 import { isOsx, isWindows } from './main/config'
 import App from './main/app'
+import { getDirname, resolvePath } from '@/main/helper/newhelper'
 
 const ficusApp = new App()
 
@@ -97,7 +98,7 @@ app.on('ready', async () => {
   protocol.registerFileProtocol('ficus', (request, callback) => {
     try {
       let generalPath = request.url.slice('ficus://'.length)
-      generalPath = path.resolve(ficusPath, generalPath)
+      generalPath = resolvePath(ficusPath, generalPath)
       const filePath = url.fileURLToPath('file://' + generalPath)
       callback(filePath)
     } catch (error) {
@@ -106,7 +107,7 @@ app.on('ready', async () => {
   })
 
   ipcMain.handle('changePath', (e, tarPath) => {
-    ficusPath = path.dirname(tarPath)
+    ficusPath = getDirname(tarPath)
   })
 
   ipcMain.on('paste', async (e, userSelect, tarPath) => {
