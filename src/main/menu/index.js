@@ -57,7 +57,7 @@ class AppMenu extends EventEmitter {
 
   setWindowRawMenu (win) {
     const menuTemplate = getMenuTemplates(this.keybinding, this.recentlyUsedDocuments)
-    win.webContents.send('set-app-menu', toRawMenuTemplates(menuTemplate))
+    bus.emit('set-app-menu', toRawMenuTemplates(menuTemplate))
   }
 
   updateAppMenu (recentlyUsedDocuments) {
