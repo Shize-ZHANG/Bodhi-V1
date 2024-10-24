@@ -1,9 +1,10 @@
 import History from '../history/index'
+import { getBasename } from '@/main/helper/newhelper'
 
 class IRTree {
   constructor (filepath, doc, options = {}) {
     this.filepath = filepath
-    this.name = filepath.slice(-7)
+    this.name = getBasename(filepath)
     this.root = null
     this.history = new History(this, doc, options)
   }

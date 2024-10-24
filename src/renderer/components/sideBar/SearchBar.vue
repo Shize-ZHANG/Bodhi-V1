@@ -81,6 +81,7 @@
 <script>
 import { ref } from 'vue'
 import bus from 'vue3-eventbus'
+import { getBasename } from '@/main/helper/newhelper'
 
 export default {
   name: 'SearchBar',
@@ -90,7 +91,7 @@ export default {
     const searchResult = ref([])
 
     function getName (path) {
-      return path.slice(-7)
+      return getBasename(path)
       // return window.pathAPI.basename(path)
     }
 
@@ -114,7 +115,7 @@ export default {
     function toggle (path) {
       const obj = {
         // name: window.pathAPI.basename(path),
-        name: path.slice(-7),
+        name: getBasename(path),
         path,
         type: 'file',
         offset: -1,

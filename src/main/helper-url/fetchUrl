@@ -1,5 +1,0 @@
-// 检验该proxy里的文件suffix是否为markdown
-export function isMarkdownItem (props) {
-  const suf = props.item.suffix
-  return (suf === '.md' || suf === '.markdown')
-}
