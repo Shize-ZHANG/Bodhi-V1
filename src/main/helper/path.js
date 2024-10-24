@@ -3,10 +3,12 @@
  */
 // import fs from 'fs-extra'
 import minimatch from 'minimatch'
+
 // import path from 'path'
 // import isMarkdownExtname from '@/main/helper/newhelper'
 //
 // const maxFileSize = 100 * 1024
+
 function slash (path) {
   const isExtendedLengthPath = path.startsWith('\\\\?\\')
 
@@ -41,6 +43,7 @@ function isValidImageFilePath (filePath) {
  * @param {string} filePath
  */
 function isValidFilePath (filePath) {
+
   // return fs.existsSync(filePath) && fs.statSync(filePath).isFile()
 }
 
@@ -99,9 +102,11 @@ function matchPathPattern (pathname, pathPatterns) {
 }
 
 export {
+
   // isValidMarkdownFilePath,
   isValidFilePath,
   // isValidFolderPath,
+
   isFileInDirectory,
   // isLeaveDirectory,
   matchPathPattern,
