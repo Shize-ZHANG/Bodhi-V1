@@ -1,15 +1,15 @@
 import { bus } from 'vue3-eventbus'
 import { createStore } from 'vuex'
 import files from './files'
-// import commands from '../commands'
+import commands from '../commands'
 import { modifiableKeybindingsMap } from '../../common/keybindings'
 import { getBasename } from '@/main/helper/newhelper'
-// const executeCommand = (state, eventId, meta) => {
-//   const command = commands.filter(e => e.id === eventId)
-//   if (command[0]) {
-//     command[0].execute(meta)
-//   }
-// }
+const executeCommand = (state, eventId, meta) => {
+  const command = commands.filter(e => e.id === eventId)
+  if (command[0]) {
+    command[0].execute(meta)
+  }
+}
 
 const state = {
   username: '',

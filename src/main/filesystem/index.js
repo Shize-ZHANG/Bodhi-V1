@@ -5,7 +5,7 @@ import { SearchEngine } from './search'
 // import path from 'path'
 // import { makeValidFilePath } from './fileManipulate'
 // import { isValidFolderPath, isValidMarkdownFilePath } from '../helper/path'
-import { getBasename, isValidFolderPath, isValidMarkdownFilePath, resolvePath } from '@/main/helper/newhelper'
+import { getBasename, isValidFolderPath, isValidMarkdownFilePath, resolvePath, sleep } from '@/main/helper/newhelper'
 // import dateFormat from 'dateformat'
 
 /**
@@ -18,8 +18,7 @@ import { getBasename, isValidFolderPath, isValidMarkdownFilePath, resolvePath } 
 
 class FileSystem {
   static instance = null
-
-  constructor (preferences) {
+  constructor (preferences, uid = 1) {
     // 如果已经有实例，抛出错误，防止直接用 new 创建多个实例
     if (FileSystem.instance) {
       throw new Error('Cannot instantiate FileSystem directly. Use FileSystem.getInstance(preferences) instead.')
@@ -27,6 +26,7 @@ class FileSystem {
 
     this.root = undefined
     this.preferences = preferences
+    this.userID = uid
   }
 
   // 静态方法，用于获取 FileSystem 的单例实例
@@ -75,7 +75,8 @@ class FileSystem {
     if (!this.root) {
       return []
     }
-    const searchEngine = new SearchEngine(this.root)
+    const searchEngine = new SearchEngine(this.root, this.userID)
+    await sleep(1000)
     await searchEngine.search(token)
     return searchEngine.results
   }

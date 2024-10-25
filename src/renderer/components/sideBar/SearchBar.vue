@@ -82,6 +82,7 @@
 import { ref } from 'vue'
 import bus from 'vue3-eventbus'
 import { getBasename } from '@/main/helper/newhelper'
+import FileSystem from '@/main/filesystem'
 
 export default {
   name: 'SearchBar',
@@ -109,7 +110,10 @@ export default {
     })
 
     async function handleSearch () {
-      searchResult.value = await window.electronAPI.globalSearch(keyWord.value)
+      // searchResult.value = await window.electronAPI.globalSearch(keyWord.value)
+      const filesystem = FileSystem.getInstance(null)
+      searchResult.value = await filesystem.searchToken(keyWord.value)
+      console.log('search results: ', searchResult.value)
     }
 
     function toggle (path) {

@@ -47,6 +47,8 @@ export default {
   },
   setup () {
     async function handleOpenDir () {
+      console.log('handleOpenDir')
+      bus.emit('cmd::execute', { id: 'fetch-files' })
       bus.emit('cmd::execute', { id: 'file.open-folder' })
     }
 

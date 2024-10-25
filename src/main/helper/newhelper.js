@@ -1,3 +1,5 @@
+import bus from 'vue3-eventbus'
+
 /**
  * 判断某个文件是否是 markdown 后缀
  * @param {string} filePath
@@ -127,6 +129,41 @@ function isValidFolderPath (filePath) {
   return !isMarkdownExtname(filePath)
 }
 
+async function fetchUserFiles (userId) {
+  try {
+    const response = await fetch(`http://localhost:8080/file/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const data1 = await response.json() // 解析 JSON 响应
+    if (response.status === 200) {
+      console.log('User files:', data1[0]) // 假设后端返回的文件信息在 data.files 中
+    } else {
+      console.error('Error fetching user files:', response.status)
+    }
+    const openDir = [{
+      name: data1[0].name,
+      path: data1[0].path,
+      children: data1[0].children,
+      curChild: -1,
+      absolutePath: data1[0].absolutePath,
+      offset: -1,
+      type: 'folder'
+    }]
+    bus.emit('openDir', openDir[0])
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    // 处理错误，比如显示提示消息给用户
+  }
+}
+
+function sleep (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 // class myEventBus {
 //   constructor () {
 //     this.events = {}
@@ -153,4 +190,4 @@ function isValidFolderPath (filePath) {
 //   }
 // }
 
-export { isMarkdownExtname, resolvePath, getBasename, getDirname, getFileNameWithoutExt, isValidMarkdownFilePath, isValidFolderPath }
+export { isMarkdownExtname, resolvePath, getBasename, getDirname, getFileNameWithoutExt, isValidMarkdownFilePath, isValidFolderPath, fetchUserFiles, sleep }

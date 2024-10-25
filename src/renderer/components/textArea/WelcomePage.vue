@@ -8,8 +8,8 @@
         </div>
       </div>
       <div class="text-center mb-20">
-        <h1 class="sm:text-3xl text-2xl justify-self-center text-center title-font text-gray-600 mb-4">欢迎来到 Ficus </h1>
-        <p class="leading-relaxed xl:w-6/12 lg:w-9/12 mx-auto" style="font-family: 'Noto Serif SC'; font-style: italic">Branch out your mind with Ficus. </p>
+        <h1 class="sm:text-3xl text-2xl justify-self-center text-center title-font text-gray-600 mb-4">Welcome To Bodhi ! </h1>
+        <p class="leading-relaxed xl:w-6/12 lg:w-9/12 mx-auto" style="font-family: 'Noto Serif SC'; font-style: italic">Branch out your mind with Bodhi. </p>
       </div>
       <div class="flex flex-wrap mx-32 my-2">
         <div class="p-2 sm:w-6/12 w-full">
@@ -20,7 +20,7 @@
                 <path d="M22 4L12 14.01l-3-3"></path>
               </svg>
             </div>
-            <span class="title-font justify-self-center">像榕树一样组织知识</span>
+            <span class="title-font justify-self-center">Let knowledge take root like a bodhi tree, its branches spreading with quiet wisdom.</span>
           </div>
         </div>
         <div class="p-2 sm:w-6/12 w-full">
@@ -31,7 +31,7 @@
                 <path d="M22 4L12 14.01l-3-3"></path>
               </svg>
             </div>
-            <span class="title-font justify-self-center">所见即所得</span>
+            <span class="title-font justify-self-center">What You See Is What You Get</span>
           </div>
         </div>
         <div class="p-2 sm:w-6/12 w-full">
@@ -42,7 +42,7 @@
                 <path d="M22 4L12 14.01l-3-3"></path>
               </svg>
             </div>
-            <span class="title-font justify-self-center">联合结构化编辑</span>
+            <span class="title-font justify-self-center">Collaborative structured editing.</span>
           </div>
         </div>
         <div class="p-2 sm:w-6/12 w-full">
@@ -53,18 +53,18 @@
                 <path d="M22 4L12 14.01l-3-3"></path>
               </svg>
             </div>
-            <span class="title-font justify-self-center">榕荫般清凉的写作体验</span>
+            <span class="title-font justify-self-center">A writing experience as soothing and serene as resting beneath the cool shade of a tree, where thoughts flow effortlessly.</span>
           </div>
         </div>
       </div>
       <div class="flex flex-wrap w-6/12 mx-auto">
         <button class="flex mx-auto mt-8 text-white bg-emerald-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-400 rounded text-sm font-semibold transition-all"
                 @click="handleOpenDir">
-          打开文件夹
+          Open My Folder
         </button>
         <button class="flex mx-auto mt-8 text-white bg-emerald-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-400 rounded text-sm font-semibold transition-all"
                 @click="handleOpenFile">
-          打开文件
+          Open My File
         </button>
       </div>
     </div>
@@ -80,7 +80,6 @@ export default {
     async function handleOpenDir () {
       bus.emit('cmd::execute', { id: 'file.open-folder' })
       bus.emit('changeFileValue', 0)
-      console.log('12345')
     }
 
     async function handleOpenFile () {

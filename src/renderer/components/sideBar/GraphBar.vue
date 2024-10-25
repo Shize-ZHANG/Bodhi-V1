@@ -153,8 +153,8 @@ export default {
       type.value = obj.category // 当前节点类型：文件夹 0 ，文件 1 ，标签 2
       if (obj.category === 0) {
         // node.value = await window.electronAPI.getFolderStatInGraph(obj.path)
-        const filesystem = FileSystem.getInstance(null)
-        node.value = await filesystem.makeFolderStatInGraph(obj.path)
+        const fileSystem = FileSystem.getInstance(null)
+        node.value = await fileSystem.makeFolderStatInGraph(obj.path)
         for (let i = 0; i < node.value.children.length; i++) {
           node.value.children[i].name = node.value.path
         }
