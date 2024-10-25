@@ -103,7 +103,7 @@ export default {
         document.documentElement.style.setProperty('--sideBarInitWidth', store.getters.getCommon.sideBarInitWidth + 'px')
       })
 
-      pathSeq = await window.pathAPI.sep
+      pathSeq = '/'
 
       window.addEventListener('resize', () => {
         windowHeight.value = window.innerHeight + 'px'
