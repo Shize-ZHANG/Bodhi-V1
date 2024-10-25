@@ -68,6 +68,7 @@ export default class IRForest {
 
   get mind () {
     if (this.filesRoot) {
+      console.log('zkk_fictree14', this.filesRoot.toMindJson())
       return this.filesRoot.toMindJson()
     } else {
       return {}
