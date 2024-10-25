@@ -1,7 +1,10 @@
 <template>
   <div class="login-wrapper">
     <div class="login-container">
-      <h1>Login</h1>
+      <div class="header">
+        <h1>Welcome to Bodhi Note</h1>
+      </div>
+      
       <form @submit.prevent="submitLogin">
         <div class="form-group">
           <label for="username">Username:</label>
@@ -73,79 +76,89 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #a8ff78 0%, #78ffd6 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* 登录容器样式 */
 .login-container {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
-  width: 300px;
+  width: 350px;
 }
 
 /* 表单组样式 */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   text-align: left;
 }
-
 /* 输入框样式 */
 input[type="text"],
 input[type="password"] {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   box-sizing: border-box;
   font-size: 16px;
+  transition: border-color 0.3s ease;
 }
-
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #78ffd6;
+  outline: none;
+}
 /* 登录按钮样式 */
 .login-button {
   width: 100%;
-  padding: 10px;
-  background-color: #2575fc;
+  padding: 12px;
+  background-color: #78ffd6;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 18px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 /* 登录按钮悬停效果 */
 .login-button:hover {
-  background-color: #6a11cb;
+  background-color: #45ccb4;
+  transform: scale(1.05);
 }
-
 /* 注册按钮样式 */
 .register-button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background-color: #fff;
-  color: #2575fc;
-  border: 1px solid #2575fc;
-  border-radius: 5px;
+  color: #45ccb4;
+  border: 2px solid #45ccb4;
+  border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-top: 15px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 /* 注册按钮悬停效果 */
 .register-button:hover {
-  background-color: #2575fc;
+  background-color: #45ccb4;
   color: white;
+  transform: scale(1.05);
 }
 
 /* 标题样式 */
 h1 {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   color: #333;
+  font-size: 24px;
+  font-weight: bold;
+}
+.header {
+  margin-bottom: 20px;
 }
 </style>
