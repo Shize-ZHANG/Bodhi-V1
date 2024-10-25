@@ -192,9 +192,14 @@ export default {
 
       const myTextArea = document.querySelector('.myTextArea')
       // 更新textUI的宽度
-      watch(() => store.state.sideBarWidth, (newValue, oldValue) => {
-        myTextArea.style.width = 'calc(100% - ' + store.getters.getSideBarWidth + 'px)'
-      })
+      if (myTextArea) {
+        // watch(() => store.state.sideBarWidth, (newValue, oldValue) => {
+        // myTextArea.style.width = 'calc(100% - ' + store.getters.getSideBarWidth + 'px)'
+        const sideBarWidth = typeof store.getters.getSideBarWidth === 'function' ? store.getters.getSideBarWidth() : store.getters.getSideBarWidth
+        myTextArea.style.width = `calc(100% - ${sideBarWidth}px)`
+      } else {
+        console.log('myTextArea not found')
+      }
     })
 
     /*
