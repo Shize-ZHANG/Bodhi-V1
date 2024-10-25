@@ -90,20 +90,20 @@ export default {
     const message = ref('')
 
     onMounted(async () => {
-      // store.dispatch('LISTEN_REFRESH')
-      // store.dispatch('LISTEN_KEYBOARD_EVENT')
-      // store.dispatch('LISTEN_OPEN_FILE_TAB')
-      // store.dispatch('LISTEN_LOAD_PREFERENCES')
-      // store.dispatch('LISTEN_LOAD_KEYBINDINGS')
-      // store.dispatch('files/LISTEN_FILE_MOVE')
-      // store.dispatch('files/LISTEN_SET_FOCUS_ID_BY_NAME')
-      // store.dispatch('files/LISTEN_FILE_CHANGED')
+      store.dispatch('LISTEN_REFRESH')
+      store.dispatch('LISTEN_KEYBOARD_EVENT')
+      store.dispatch('LISTEN_OPEN_FILE_TAB')
+      store.dispatch('LISTEN_LOAD_PREFERENCES')
+      store.dispatch('LISTEN_LOAD_KEYBINDINGS')
+      store.dispatch('files/LISTEN_FILE_MOVE')
+      store.dispatch('files/LISTEN_SET_FOCUS_ID_BY_NAME')
+      store.dispatch('files/LISTEN_FILE_CHANGED')
 
       bus.on('changeSideBarWidth', () => {
         document.documentElement.style.setProperty('--sideBarInitWidth', store.getters.getCommon.sideBarInitWidth + 'px')
       })
 
-      pathSeq = '/'
+      pathSeq = await window.pathAPI.sep
 
       window.addEventListener('resize', () => {
         windowHeight.value = window.innerHeight + 'px'
