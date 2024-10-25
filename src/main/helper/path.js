@@ -3,12 +3,12 @@
  */
 // import fs from 'fs-extra'
 import minimatch from 'minimatch'
-// import path from 'path'
 
 // import path from 'path'
 // import isMarkdownExtname from '@/main/helper/newhelper'
 //
 // const maxFileSize = 100 * 1024
+
 function slash (path) {
   const isExtendedLengthPath = path.startsWith('\\\\?\\')
 
