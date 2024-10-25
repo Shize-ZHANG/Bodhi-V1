@@ -4,7 +4,6 @@
       <div class="header">
         <h1>Create Your Account</h1>
       </div>
-      
       <form @submit.prevent="submitRegister">
         <div class="form-group">
           <label for="username">Username:</label>

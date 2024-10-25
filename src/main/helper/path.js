@@ -3,7 +3,7 @@
  */
 // import fs from 'fs-extra'
 import minimatch from 'minimatch'
-import path from 'path'
+// import path from 'path'
 
 // import path from 'path'
 // import isMarkdownExtname from '@/main/helper/newhelper'
@@ -18,7 +18,6 @@ function slash (path) {
 
   return path.replace(/\\/g, '/')
 }
-
 
 /**
  * 判断某个markdown文件可以进行读取(路径存在，为md文件，且大小不超过100KB)

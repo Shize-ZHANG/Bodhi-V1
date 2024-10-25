@@ -4,7 +4,6 @@
       <div class="header">
         <h1>Welcome to Bodhi Note</h1>
       </div>
-      
       <form @submit.prevent="submitLogin">
         <div class="form-group">
           <label for="username">Username:</label>
