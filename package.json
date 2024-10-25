@@ -14,6 +14,7 @@
     },
     "main": "background.js",
     "dependencies": {
+        "axios": "^1.7.7",
         "browserify-fs": "^1.0.0",
         "chokidar": "^3.5.3",
         "dateformat": "^5.0.3",
@@ -23,7 +24,8 @@
         "katex": "^0.16.7",
         "minimatch": "^5.1.1",
         "path-browserify": "^1.0.1",
-        "vatex": "^0.1.0"
+        "vatex": "^0.1.0",
+        "vue-router": "^4.4.5"
     },
     "devDependencies": {
         "@babel/cli": "^7.21.5",
