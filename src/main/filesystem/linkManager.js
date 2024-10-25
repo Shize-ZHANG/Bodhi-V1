@@ -1,8 +1,8 @@
 // import path from 'path'
 // import { addTagToDoc, getLinksInFile, removeTagFromDoc } from '../../common/parseLinks'
 // import fs from 'fs-extra'
-import { isValidMarkdownFilePath } from '../helper/path'
-import { getBasename, getDirname, resolvePath } from '@/main/helper/newhelper'
+// import { isValidMarkdownFilePath } from '../helper/path'
+import { getBasename, getDirname, isValidMarkdownFilePath, resolvePath } from '@/main/helper/newhelper'
 // import { deleteFolder, move } from '@/main/filesystem/fileManipulate'
 class LinkManager {
   /**
