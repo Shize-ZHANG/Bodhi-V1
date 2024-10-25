@@ -123,7 +123,7 @@ export default {
         path,
         type: 'file',
         offset: -1,
-        absolutePath: path.split(window.pathAPI.sep)
+        absolutePath: '/'
       }
       bus.emit('openNewTab', obj)
     }
