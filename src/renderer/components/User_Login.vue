@@ -25,6 +25,7 @@
 
 <script>
 import axios from 'axios'
+import store from '@/renderer/store'
 export default {
   name: 'UserLogin',
   data () {
@@ -38,14 +39,14 @@ export default {
     async submitLogin () {
       try {
         // 发送登录请求到后端 API
-        const response = await axios.post('http://localhost:8080/login', {
+        const response = await axios.post('http://localhost:8082/login', {
           username: String(this.username),
           password: String(this.password)
         })
         // 处理响应
         if (!response.data.error) {
-          this.$store.dispatch('updateUsername', this.username)
-          console.log(this.$store.getters.getUsername)
+          this.$store.dispatch('updateUid', response.data.uid)
+          console.log('uid is: ', store.getters.getuid)
           // 登录成功，跳转到主页面
           this.$router.push('/main')
         } else {

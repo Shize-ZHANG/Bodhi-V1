@@ -164,7 +164,7 @@ const commands = [
       // window.electronAPI.openFolder()
       // const folderPath = pathname || await this.filesystem.selectFolderPathFromDialog()
       const folderPath = '/'
-      const userId = 1
+      const userId = store.getters.getuid
       if (folderPath) {
         // await this.resetWatcher()
         // const projectStat = await makeFolderStat(folderPath,
