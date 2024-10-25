@@ -358,15 +358,15 @@ export default {
       if (oldValue >= 5 && newValue <= 4) {
         bus.emit('backToEditMode')
       }
-      if (newValue === 7) {
-        // 禁用快捷键
-        window.electronAPI.disableAllKeybindings()
-      }
-      if (oldValue === 7) {
-        // 启用快捷键
-        window.electronAPI.enableAllKeybindings()
-        store.dispatch('SAVE_PREFERENCES')
-      }
+      // if (newValue === 7) {
+      //   // 禁用快捷键
+      //   window.electronAPI.disableAllKeybindings()
+      // }
+      // if (oldValue === 7) {
+      //   // 启用快捷键
+      //   window.electronAPI.enableAllKeybindings()
+      //   store.dispatch('SAVE_PREFERENCES')
+      // }
     })
 
     bus.on('quitFromGraph', () => {
