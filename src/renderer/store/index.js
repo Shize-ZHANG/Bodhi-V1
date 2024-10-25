@@ -12,6 +12,7 @@ import { getBasename } from '@/main/helper/newhelper'
 // }
 
 const state = {
+  username: '',
   xy: {
     x: 0,
     y: 0
@@ -67,6 +68,9 @@ const state = {
 }
 
 const mutations = {
+  setUsername (state, username) {
+    state.username = username
+  },
   // 定义mutations，用于修改状态(同步)
   updateXY (state, xy) {
     state.xy = xy
@@ -157,6 +161,9 @@ const mutations = {
 }
 
 const actions = {
+  updateUsername ({ commit }, username) {
+    commit('setUsername', username)
+  },
   // 定义actions，用于修改状态(异步)
   updateXY (context, xy) {
     context.commit('updateXY', xy)
@@ -244,6 +251,7 @@ const actions = {
 }
 
 const getters = {
+  getUsername: (state) => state.username,
   // 定义一个getters
   getXY (state) {
     return state.xy.x + '+' + state.xy.y

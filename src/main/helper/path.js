@@ -43,7 +43,6 @@ function isValidImageFilePath (filePath) {
  * @param {string} filePath
  */
 function isValidFilePath (filePath) {
-
   // return fs.existsSync(filePath) && fs.statSync(filePath).isFile()
 }
 
@@ -102,11 +101,9 @@ function matchPathPattern (pathname, pathPatterns) {
 }
 
 export {
-
   // isValidMarkdownFilePath,
   isValidFilePath,
   // isValidFolderPath,
-
   isFileInDirectory,
   // isLeaveDirectory,
   matchPathPattern,

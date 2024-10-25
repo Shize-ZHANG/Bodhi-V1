@@ -1,12 +1,11 @@
 <template>
   <div id="app" :style="{ height: windowHeight }">
     <router-view />  <!-- 这里渲染匹配的路由组件 -->
-    <UserLogin />  <!-- 使用 UserLogin 组件 -->
-<!--    <MyHeader :data="data" style="width: 100%"></MyHeader>-->
-<!--    <div style="display: flex; height: 100%; width: 100%; position: relative">-->
-<!--      <SideBar :data="data" style="height: 100%; position: fixed;" :style="{ height: windowHeight }"></SideBar>-->
-<!--      <TextArea class="myTextArea" :style="{ height: windowHeight }"></TextArea>-->
-<!--    </div>-->
+        <MyHeader :data="data" style="width: 100%"></MyHeader>
+        <div style="display: flex; height: 100%; width: 100%; position: relative">
+          <SideBar :data="data" style="height: 100%; position: fixed;" :style="{ height: windowHeight }"></SideBar>
+          <TextArea class="myTextArea" :style="{ height: windowHeight }"></TextArea>
+        </div>
     <div class="dialog text-white px-6 py-4 border-0 rounded bg-pink-500 z-50 shadow-lg transition-all" v-if="myAlert">
       <span class="text-xl inline-block mr-5 align-middle">
         <div class="mr-3">
@@ -61,21 +60,17 @@
 <script>
 
 import { getCurrentInstance, onMounted, ref, watch } from 'vue'
-// import MyHeader from '@/renderer/components/header/MyHeader'
-// import SideBar from '@/renderer/components/sideBar/SideBar'
-// import TextArea from '@/renderer/components/textArea/TextArea'
+import MyHeader from '@/renderer/components/header/MyHeader'
+import SideBar from '@/renderer/components/sideBar/SideBar'
+import TextArea from '@/renderer/components/textArea/TextArea'
 import bus from 'vue3-eventbus'
 import store from '@/renderer/store'
-import { namifyMarkdownFile } from './utils/pathHelpter'
-import LinkManager from '@/main/filesystem/linkManager'
-import UserLogin from './components/User_Login.vue'
-
-// import LinkManager from '@/main/filesystem/linkManager'
+import { namifyMarkdownFile } from '../utils/pathHelpter'
 
 export default {
-  name: 'App',
-  // components: { SideBar, MyHeader, TextArea, UserLogin },
-  components: { UserLogin },
+  name: 'UserMain',
+  components: { SideBar, MyHeader, TextArea },
+
   setup () {
     let pathSeq = ''
     const data = ref([])
@@ -108,7 +103,7 @@ export default {
         document.documentElement.style.setProperty('--sideBarInitWidth', store.getters.getCommon.sideBarInitWidth + 'px')
       })
 
-      pathSeq = '/'
+      pathSeq = await window.pathAPI.sep
 
       window.addEventListener('resize', () => {
         windowHeight.value = window.innerHeight + 'px'
@@ -261,63 +256,6 @@ export default {
     // 关闭文件夹
     bus.on('closeDir', () => {
       data.value.length = 0
-    })
-
-    bus.on('ficus::getCites', async (filePath) => {
-      // const { linkManager } = this.getBaseWindowById(BrowserWindow.fromWebContents(e.sender).id)
-      const { linkManager } = LinkManager.getInstance()
-      return linkManager.getCiteInfo(filePath)
-    })
-
-    bus.on('ficus::getTags', async (tagName) => {
-      // const { linkManager } = this.getBaseWindowById(BrowserWindow.fromWebContents(e.sender).id)
-      const linkManager = LinkManager.getInstance()
-      return linkManager.findTags(tagName)
-    })
-
-    bus.on('ficus::getLinks', async () => {
-      // const { linkManager } = this.getBaseWindowById(BrowserWindow.fromWebContents(e.sender).id)
-      const linkManager = await LinkManager.getInstance()
-      return await linkManager.getLinks()
-    })
-
-    // Ajax请求
-    bus.on('cmd::execute', ({ id, meta }) => {
-      // executeCommand(state, id, meta)
-
-      async function fetchUserFiles (userId) {
-        try {
-          const response = await fetch(`http://localhost:8080/file/${userId}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          })
-
-          const data1 = await response.json() // 解析 JSON 响应
-          if (response.status === 200) {
-            console.log('User files:', data1[0]) // 假设后端返回的文件信息在 data.files 中
-          } else {
-            console.error('Error fetching user files:', response.status)
-          }
-          const openDir = [{
-            name: data1[0].name,
-            path: data1[0].path,
-            children: data1[0].children,
-            curChild: -1,
-            absolutePath: data1[0].absolutePath,
-            offset: -1,
-            type: 'folder'
-          }]
-          bus.emit('openDir', openDir[0])
-        } catch (error) {
-          console.error('Error fetching data:', error)
-          // 处理错误，比如显示提示消息给用户
-        }
-      }
-
-      // 调用函数，并传递 userId
-      fetchUserFiles(1) // 假设 userId 是 12345
     })
 
     function nameValidTest (name) {
