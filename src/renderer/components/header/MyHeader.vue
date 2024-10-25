@@ -318,6 +318,7 @@ export default {
     function sendContentByMode () {
       if (store.getters.getMode === 5) {
         const obj = store.getters['files/forestMind']
+        console.log('fictree13', toRaw(obj))
         bus.emit('sendToFicTree', toRaw(obj))
       } else if (store.getters.getMode === 2) {
         const obj = store.getters['files/mind']

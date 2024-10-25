@@ -21,6 +21,7 @@ class Content {
   }
 
   getMindJson () {
+    console.log('zkk_fictree20', this.text || this.typename, this.text, this.typename)
     return {
       data: {
         name: this.text,
@@ -99,16 +100,21 @@ class FrontmatterContent extends Content {
   }
 
   getMindJson () {
+    const yamlData = yaml.dump(this.data)
+    console.log('zkk_fictree15', yaml.dump(this.data))
     return {
-      name: yaml.dump(this.data),
-      text: yaml.dump(this.data),
-      type: this.typename,
+      data: {
+        name: yamlData,
+        text: yamlData,
+        type: this.typename
+      },
       children: []
     }
   }
 }
 class RootContent extends Content {
   constructor (filename) {
+    console.log('zkk_fictree:', filename)
     super(rootTypeName, filename)
     this.isBlock = true
   }
@@ -130,7 +136,7 @@ class RootContent extends Content {
       data: {
         name: this.text,
         // text: window.pathAPI.basename(this.text) || this.typename,
-        text: this.text.length || this.typename,
+        text: this.text || this.typename,
         type: this.typename
       },
       children: []
