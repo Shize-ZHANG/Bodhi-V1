@@ -13,7 +13,7 @@ import { getBasename } from '@/main/helper/newhelper'
 
 const state = {
   username: '',
-  uid: '',
+  uid: 0,
   xy: {
     x: 0,
     y: 0

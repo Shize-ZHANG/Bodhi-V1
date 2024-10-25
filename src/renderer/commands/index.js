@@ -135,7 +135,7 @@ const commands = [
       }
 
       // 调用函数，并传递 userId
-      fetchReadUserFiles(1) // 假设 userId 是 12345
+      fetchReadUserFiles(1) // uid暂时写死为1，实际应是 const uid = store.getters.getuid
     }
   },
   {
@@ -160,11 +160,12 @@ const commands = [
   {
     id: 'file.open-folder',
     execute: async () => {
-      console.log('execute: file.open-folder')
+      // console.log('execute: file.open-folder')
       // window.electronAPI.openFolder()
       // const folderPath = pathname || await this.filesystem.selectFolderPathFromDialog()
       const folderPath = '/'
       const userId = store.getters.getuid
+      console.log(userId)
       if (folderPath) {
         // await this.resetWatcher()
         // const projectStat = await makeFolderStat(folderPath,

@@ -75,6 +75,7 @@ class FileSystem {
     if (!this.root) {
       return []
     }
+    console.log('filesystem userID: ', this.userID)
     const searchEngine = new SearchEngine(this.root, this.userID)
     await sleep(1000)
     await searchEngine.search(token)
