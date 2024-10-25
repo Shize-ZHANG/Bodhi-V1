@@ -10283,7 +10283,7 @@ vue-template-es2015-compiler@^1.9.0:
 
 vue3-eventbus@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npmjs.org/vue3-eventbus/-/vue3-eventbus-2.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/vue3-eventbus/-/vue3-eventbus-2.0.0.tgz#0ee35d7286a164f8e635b7a3f2b7b0270ddfbd47"
   integrity sha512-AzgA5ShZqWy6zeuZbnwAOZDt/GHRcUwUEyNmUoOEK7MtwpjABXtyh1m6JHzcEulrRrxMgpI2qDFsjss3fYpYuw==
   dependencies:
     mitt "^2.1.0"

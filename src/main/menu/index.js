@@ -1,4 +1,5 @@
 // import { Menu, ipcMain } from 'electron'
+import { bus } from 'vue3-eventbus'
 import { isOsx, isWindows } from '../config'
 import { getMenuTemplates, toRawMenuTemplates } from './templates'
 // import fs from 'fs'
