@@ -37,7 +37,7 @@ export default {
       try {
         // 发送注册请求到后端 API
         // console.log(this.username, this.password)
-        const response = await axios.post('http://localhost:8080/register', {
+        const response = await axios.post('http://localhost:8082/register', {
           username: String(this.username),
           password: String(this.password)
         })
