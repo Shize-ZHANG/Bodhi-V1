@@ -38,7 +38,7 @@ export class SearchEngine {
     //     this.results.push(filepath)
     //   }
     // }
-    // console.log('this.root[] is: ', this.root1)
+    console.log('this.root[] is: ', this.root1)
     for (const f of this.root1.children) {
       if (f.type === 'folder' || !isMarkdownExtname(f.url)) continue
       const content = (await readFile(f.url)).content
@@ -64,6 +64,8 @@ export class SearchEngine {
 
   async _getFiles (uid) {
     try {
+      console.log('_getFile-uid', uid)
+      uid = 1 // 暂时将uid 写死为1
       const response = await fetch(`http://localhost:8080/file/${uid}`, {
         method: 'GET',
         headers: {
