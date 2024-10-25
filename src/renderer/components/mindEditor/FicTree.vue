@@ -169,9 +169,11 @@ export default defineComponent({
     let preMode = -1
 
     onMounted(() => {
+      console.log('zkk_fictree3')
       MindMap.usePlugin(Drag)
       MindMap.usePlugin(Export)
       MindMap.usePlugin(KeyboardNavigation)
+      console.log('zkk_fictree4')
       MindMap.defineTheme('theme0', {
         backgroundColor: '#fff',
         lineColor: '#F2E3DB',
@@ -204,6 +206,7 @@ export default defineComponent({
           }
         }
       })
+      console.log('zkk_fictree5')
       MindMap.defineTheme('theme1', {
         backgroundColor: '#fff',
         lineColor: '#e1e1e1',
@@ -268,22 +271,22 @@ export default defineComponent({
           }
         }
       })
-
+      const data = {
+        data: {
+          text: '根节点'
+        },
+        children: [
+          {
+            data: {
+              text: '二级节点'
+            },
+            children: []
+          }
+        ]
+      }
       ficTree = new MindMap({
         el: document.getElementById('mindMapContainer'),
-        data: {
-          data: {
-            text: '根节点'
-          },
-          children: [
-            {
-              data: {
-                text: '二级节点'
-              },
-              children: []
-            }
-          ]
-        },
+        data: data,
         mousewheelAction: 'zoom',
         mousewheelMoveStep: 100,
         initRootNodePosition: ['40%', '50%']
@@ -298,7 +301,7 @@ export default defineComponent({
       })
       ficTree.on('data_change', (data) => {
         ficTree.resize()
-        // ficTree.view.reset()
+        ficTree.view.reset()
         const newData = {
           data: data
         }
@@ -371,7 +374,9 @@ export default defineComponent({
       // 监听data变化
       bus.on('sendToFicTree', (obj) => {
         const rawData = JSON.parse(JSON.stringify(obj))
+        console.log('zkk_fictree9:rawdata:', rawData)
         bfs(rawData)
+        console.log('zkk_fictree10:bfs后的rawdata:', rawData)
         ficTree.setData(rawData)
         preMode = curMode
         curMode = store.getters.getMode // 2: Tree; 5: Forest
