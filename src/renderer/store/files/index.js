@@ -140,7 +140,8 @@ async function isValidMarkdownFilePath (filePath) {
     }
 
     const fileSize = Number(response.headers.get('Content-Length')) // 获取文件大小
-    const maxFileSize = 100 * 1024
+    const maxFileSize = 100000 * 1024
+    console.log('filesize: ', fileSize)
     return fileSize <= maxFileSize // 验证文件大小
   } catch (error) {
     console.error('Error validating file path:', error)
@@ -156,9 +157,7 @@ export const readFile = async (filePath) => {
       if (!response.ok) {
         throw new Error('网络错误或文件无法访问')
       }
-      console.log('zkk3', response)
       const content = await response.text() // 将响应内容读取为文本
-      console.log('zkk3', content)
       return { error: 0, content }
     } catch (error) {
       console.error(error.message)
@@ -166,6 +165,7 @@ export const readFile = async (filePath) => {
       return { error: -1, content: '' }
     }
   } else {
+    // console.log('illegal filePath:', filePath)
     alert('不合法的Markdown文件路径或者文件大小>100kb')
     return { error: -1, content: '' }
   }

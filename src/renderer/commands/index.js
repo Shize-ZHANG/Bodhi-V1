@@ -1,5 +1,6 @@
 import { bus } from 'vue3-eventbus'
 import store from '../store'
+import FileSystem from '@/main/filesystem'
 
 const state = {
   openDev: false
@@ -11,6 +12,12 @@ const commands = [
     id: 'edit.undo',
     execute: async () => {
       bus.emit('undoCurTab')
+    }
+  },
+  {
+    id: 'fetch-files',
+    execute: async () => {
+      bus.emit('fetch-files')
     }
   },
   {
@@ -129,8 +136,6 @@ const commands = [
 
       // 调用函数，并传递 userId
       fetchReadUserFiles(1) // 假设 userId 是 12345
-
-      
     }
   },
   {
@@ -155,7 +160,21 @@ const commands = [
   {
     id: 'file.open-folder',
     execute: async () => {
-      window.electronAPI.openFolder()
+      console.log('execute: file.open-folder')
+      // window.electronAPI.openFolder()
+      // const folderPath = pathname || await this.filesystem.selectFolderPathFromDialog()
+      const folderPath = '/'
+      const userId = 1
+      if (folderPath) {
+        // await this.resetWatcher()
+        // const projectStat = await makeFolderStat(folderPath,
+        //   this.preferences.getIgnoredPaths(folderPath))
+        FileSystem.getInstance().root = folderPath
+        FileSystem.getInstance().userID = userId
+        // this.watcher.watch(this.win, projectStat.path, 'dir')
+        // this.win.webContents.send('ficus::passive-refresh', projectStat)
+      }
+      return folderPath
     }
   },
   {

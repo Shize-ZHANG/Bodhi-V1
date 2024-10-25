@@ -38,6 +38,7 @@ class BaseWindow {
   }
 
   async openFolder (pathname) {
+    console.log('openFolder invoke')
     const folderPath = pathname || await this.filesystem.selectFolderPathFromDialog()
     if (folderPath) {
       // await this.resetWatcher()

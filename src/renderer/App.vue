@@ -66,6 +66,8 @@ import bus from 'vue3-eventbus'
 import store from '@/renderer/store'
 import { namifyMarkdownFile } from './utils/pathHelpter'
 import LinkManager from '@/main/filesystem/linkManager'
+import { fetchUserFiles } from '@/main/helper/newhelper'
+import commands from '@/renderer/commands'
 // import LinkManager from '@/main/filesystem/linkManager'
 
 export default {
@@ -276,41 +278,19 @@ export default {
       return await linkManager.getLinks()
     })
 
+    const executeCommand = (eventId, meta) => {
+      const command = commands.filter(e => e.id === eventId)
+      if (command[0]) {
+        command[0].execute(meta)
+      }
+    }
     // Ajax请求
     bus.on('cmd::execute', ({ id, meta }) => {
-      // executeCommand(state, id, meta)
+      console.log('id is: ', id)
+      executeCommand(id, meta)
+    })
 
-      async function fetchUserFiles (userId) {
-        try {
-          const response = await fetch(`http://localhost:8080/file/${userId}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          })
-
-          const data1 = await response.json() // 解析 JSON 响应
-          if (response.status === 200) {
-            console.log('User files:', data1[0]) // 假设后端返回的文件信息在 data.files 中
-          } else {
-            console.error('Error fetching user files:', response.status)
-          }
-          const openDir = [{
-            name: data1[0].name,
-            path: data1[0].path,
-            children: data1[0].children,
-            curChild: -1,
-            absolutePath: data1[0].absolutePath,
-            offset: -1,
-            type: 'folder'
-          }]
-          bus.emit('openDir', openDir[0])
-        } catch (error) {
-          console.error('Error fetching data:', error)
-          // 处理错误，比如显示提示消息给用户
-        }
-      }
-
+    bus.on('fetch-files', () => {
       // 调用函数，并传递 userId
       fetchUserFiles(1) // 假设 userId 是 12345
     })
