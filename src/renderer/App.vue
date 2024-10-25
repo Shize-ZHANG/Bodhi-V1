@@ -314,10 +314,59 @@ export default {
       }
     }
 
+    function createNewFile (folderPath, fileName) {
+      fetch('http://localhost:8080/file/create/file', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          path: folderPath,
+          name: fileName
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            console.log('文件创建成功')
+          } else {
+            console.error('文件创建失败:', data.message)
+          }
+        })
+        .catch(error => {
+          console.error('请求错误:', error)
+        })
+    }
+
+    function createNewFolder (folderPath, folderName) {
+      fetch('http://localhost:8080/file/create/folder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          path: folderPath,
+          name: folderName
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            console.log('文件夹创建成功')
+          } else {
+            console.error('文件夹创建失败:', data.message)
+          }
+        })
+        .catch(error => {
+          console.error('请求错误:', error)
+        })
+    }
+
     // 新建文件/文件夹
     async function handleNew () {
       if (dialogName.value === '新建文件') {
         fileName.value = namifyMarkdownFile(fileName.value)
+        console.log('zkk_newfile111', father)
       }
       if (!nameValidTest(fileName.value)) {
         bus.emit('showMyAlert', { message: '文件名或文件夹名非法' })
@@ -329,9 +378,12 @@ export default {
           return
         }
         if (dialogName.value === '新建文件') {
-          window.electronAPI.newFileFromSidebar(father.value.path, fileName.value)
+          // window.electronAPI.newFileFromSidebar(father.value.path, fileName.value)
+          console.log('zkk_newfile', father)
+          createNewFile(father.value.path, fileName.value)
         } else {
-          window.electronAPI.newFolderFromSidebar(father.value.path, fileName.value)
+          // window.electronAPI.newFolderFromSidebar(father.value.path, fileName.value)
+          createNewFolder(father.value.path, fileName.value)
         }
         const paths = []
         for (let i = 0; i < father.value.absolutePath.length; i++) {

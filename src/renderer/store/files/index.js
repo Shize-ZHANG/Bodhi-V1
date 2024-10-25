@@ -114,6 +114,7 @@ const mutations = {
 function isMarkdownExtname (filePath) {
   // 检查filePath是否为有效字符串
   if (typeof filePath !== 'string' || filePath.trim() === '') {
+    console.log('zkk_newfile:', filePath)
     console.error('Invalid filePath:', filePath) // 打印错误信息
     return false // 返回false表示无效
   }
@@ -166,7 +167,7 @@ export const readFile = async (filePath) => {
     }
   } else {
     // console.log('illegal filePath:', filePath)
-    alert('不合法的Markdown文件路径或者文件大小>100kb')
+    // alert('不合法的Markdown文件路径或者文件大小>100kb')
     return { error: -1, content: '' }
   }
 }
