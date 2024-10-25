@@ -60,7 +60,7 @@
 
 <script>
 
-import { getCurrentInstance, onMounted, ref, watch } from 'vue'
+import { getCurrentInstance, onMounted, ref } from 'vue'
 // import MyHeader from '@/renderer/components/header/MyHeader'
 // import SideBar from '@/renderer/components/sideBar/SideBar'
 // import TextArea from '@/renderer/components/textArea/TextArea'
