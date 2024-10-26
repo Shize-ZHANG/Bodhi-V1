@@ -99,9 +99,10 @@ const commands = [
       // }
 
       // ajax请求文件内容
+      const fileSystemUrl = process.env.VUE_APP_URL_FILE_SYSTEM
       async function fetchReadUserFiles (userId) {
         try {
-          const response = await fetch(`http://localhost:8080/file/${userId}`, { // fetch的URL需要换
+          const response = await fetch(`${fileSystemUrl}/file/${userId}`, { // fetch的URL需要换
             method: 'GET',
             headers: {
               'Content-Type': 'application/json'
