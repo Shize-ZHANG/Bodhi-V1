@@ -41,6 +41,7 @@ import bus from 'vue3-eventbus'
 import store from '@/renderer/store'
 
 import { getBasename, isMarkdownExtname } from '@/main/helper/newhelper'
+import LinkManager from '@/main/filesystem/linkManager'
 export default {
   name: 'ForestBar',
   components: { ForestItem },
@@ -102,7 +103,8 @@ export default {
         }
       } else if (option === 2) {
         files.value.length = 0
-        const allTag = await window.electronAPI.getTags()
+        // const allTag = await window.electronAPI.getTags()
+        const allTag = LinkManager.getInstance().findTags()
         console.log(allTag)
         for (let i = 0; i < allTag.length; i++) {
           const array = await window.electronAPI.getFilesByTag(allTag[i])

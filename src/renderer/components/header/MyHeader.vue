@@ -518,12 +518,12 @@ export default {
       for (const file of openFiles.value) {
         if (file.path === curObj.value.path) {
           curObj.value.path = getRenamePath(oldPath, newPath, file.path)
-          curObj.value.absolutePath = file.path.split(window.pathAPI.sep)
+          curObj.value.absolutePath = file.path.split('/')
           // curObj.value.name = window.pathAPI.basename(file.path)
           curObj.value.name = getBasename(file.path)
         }
         file.path = getRenamePath(oldPath, newPath, file.path)
-        file.absolutePath = file.path.split(window.pathAPI.sep)
+        file.absolutePath = file.path.split('/')
         // file.name = window.pathAPI.basename(file.path)
         file.name = getBasename(file.path)
       }

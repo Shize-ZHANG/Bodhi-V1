@@ -157,7 +157,7 @@ export default {
         path: item.path,
         type: 'file',
         offset: -1,
-        absolutePath: item.path.split(window.pathAPI.sep)
+        absolutePath: item.path.split('/')
       }
       bus.emit('openNewTab', obj)
     }
