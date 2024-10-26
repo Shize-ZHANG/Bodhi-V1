@@ -321,14 +321,17 @@ export default {
     }
 
     const fileSystemUrl = process.env.VUE_APP_URL_FILE_SYSTEM
-    function createNewFile (folderPath, fileName) {
+    function createNewFile (userId, folderPath, parentId, fileName) {
       fetch(`${fileSystemUrl}/file/create/file`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          user_id: userId,
+          absolute_path: folderPath,
           path: folderPath,
+          parent_id: parentId,
           name: fileName
         })
       })
@@ -345,14 +348,17 @@ export default {
         })
     }
 
-    function createNewFolder (folderPath, folderName) {
+    function createNewFolder (userId, folderPath, parentId, folderName) {
       fetch('http://localhost:8080/file/create/folder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          user_id: userId,
+          absolute_path: folderPath,
           path: folderPath,
+          parent_id: parentId,
           name: folderName
         })
       })
@@ -383,12 +389,13 @@ export default {
           fileName.value = ''
           return
         }
+        console.log('这会的father是谁？', father)
         if (dialogName.value === '新建文件') {
           // window.electronAPI.newFileFromSidebar(father.value.path, fileName.value)
-          createNewFile(father.value.path, fileName.value)
+          createNewFile(father.value.userId, father.value.path, father.value.id, fileName.value)
         } else {
           // window.electronAPI.newFolderFromSidebar(father.value.path, fileName.value)
-          createNewFolder(father.value.path, fileName.value)
+          createNewFolder(father.value.userId, father.value.path, father.value.id, fileName.value)
         }
         const paths = []
         for (let i = 0; i < father.value.absolutePath.length; i++) {

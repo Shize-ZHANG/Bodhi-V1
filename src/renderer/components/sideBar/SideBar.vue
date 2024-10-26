@@ -377,28 +377,10 @@ export default {
 
     async function flushTree () {
       fetchUserFiles(1)
-      // const projPath = props.data[0].path
-      // const newChildren = await window.electronAPI.refresh(projPath)
-      // 暂时跳过通过FicusIgnore过滤不需要显示的文件的功能
-      // const openDir = [{
-      //   name: props.data[0].name,
-      //   path: projPath,
-      //   children: newChildren,
-      //   curChild: -1,
-      //   absolutePath: props.data[0].absolutePath,
-      //   offset: -1,
-      //   type: 'folder'
-      // }]
-      // const openDir = props.data[0]
-      // // bus.emit('openDir', openDir[0])
-      // bus.emit('openDir', openDir)
-      console.log('fetchUserFiles之后,SideBar的props是：', props.data)
-      // selected.value.length = 0
     }
 
     async function handleFlush () {
       if (isFile.value === 0) {
-        console.log('刚进handleFlush时,SideBar的props是：', props.data)
         await flushTree()
       } else if (isFile.value === 1) {
         bus.emit('reSearch')

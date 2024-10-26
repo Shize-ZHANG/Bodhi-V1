@@ -298,6 +298,7 @@ export default {
     }
 
     function getName (item) {
+      console.log('getName的item是哪个：', item)
       const index = item.absolutePath.length + item.offset
       let res = item.absolutePath[index]
       for (let i = index + 1; i <= item.absolutePath.length - 1; i++) {
