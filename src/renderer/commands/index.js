@@ -116,6 +116,8 @@ const commands = [
             console.error('Error fetching user files:', response.status)
           }
           const file = {
+            userId: data1.userId,
+            id: data1.id,
             name: data1.name,
             // path: path.join(father.value.path, fileName.value),
             path: data1.path,

@@ -139,14 +139,14 @@ async function fetchUserFiles (userId) {
     })
 
     const data1 = await response.json() // 解析 JSON 响应
-    console.log('response status是：', response.status)
-    console.log('data1是：', data1)
     if (response.status === 200) {
-      console.log('User files:', data1[0]) // 假设后端返回的文件信息在 data.files 中
+      console.log('User files:', data1) // 假设后端返回的文件信息在 data.files 中
     } else {
       console.error('Error fetching user files:', response.status)
     }
     const openDir = [{
+      userId: data1[0].userId,
+      id: data1[0].id,
       name: data1[0].name,
       path: data1[0].path,
       children: data1[0].children,
