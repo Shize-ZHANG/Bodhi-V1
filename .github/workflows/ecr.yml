@@ -1,0 +1,33 @@
+name: AWS ECR Image Build and Push
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - master
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  build-push-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::476114114107:role/github-oidc-role
+          aws-region: ap-southeast-1
+      - name: login
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: build
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: bodhi_frontend
+          IMAGE_TAG: 0.0.${{ github.run_number }}
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f Dockerfile .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+      
