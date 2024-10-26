@@ -1,0 +1,4 @@
+node_modules
+dist
+dist_electron
+src/main/update

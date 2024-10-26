@@ -1,44 +1,155 @@
 {
-  "name": "bodhi_alpha",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "core-js": "^3.8.3",
-    "vue": "^3.2.13",
-    "vue-router": "^4.4.5"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "bodhi_alpha",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve --port 8081",
+        "build": "vue-cli-service build",
+        "test": "mocha --recursive --exit --colors --require @babel/register",
+        "test:coverage": "nyc --reporter=text mocha --recursive --exit --colors --require @babel/register",
+        "commit": "git-cz",
+        "eslint": "eslint . --fix",
+        "build:tailwind": "tailwind build src/renderer/assets/index.css -o src/renderer/assets/tailwind.css",
+        "babel-node": "./node_modules/.bin/babel-node"
     },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
+    "main": "background.js",
+    "dependencies": {
+        "axios": "^1.7.7",
+        "browserify-fs": "^1.0.0",
+        "chokidar": "^3.5.3",
+        "dateformat": "^5.0.3",
+        "ficus": "^0.0.4",
+        "force-graph": "1.35.1",
+        "html2canvas": "^1.4.1",
+        "katex": "^0.16.7",
+        "minimatch": "^5.1.1",
+        "path-browserify": "^1.0.1",
+        "vatex": "^0.1.0",
+        "vue-router": "^4.4.5"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.21.5",
+        "@babel/core": "^7.21.5",
+        "@babel/eslint-parser": "^7.12.16",
+        "@babel/node": "^7.20.7",
+        "@babel/preset-env": "^7.21.5",
+        "@popperjs/core": "^2.11.7",
+        "@tailwindcss/forms": "0.2.1",
+        "@tailwindcss/postcss7-compat": "^2.2.17",
+        "@typescript-eslint/eslint-plugin": "^5.57.1",
+        "@typescript-eslint/parser": "^5.57.1",
+        "@vue/cli-plugin-babel": "~5.0.0",
+        "@vue/cli-plugin-eslint": "~5.0.0",
+        "@vue/cli-service": "~5.0.0",
+        "@vue/reactivity": "^3.2.47",
+        "@vueuse/core": "^10.1.0",
+        "adm-zip": "^0.5.10",
+        "assert": "^2.0.0",
+        "autoprefixer": "9",
+        "chai": "^4.3.7",
+        "commitizen": "^4.3.0",
+        "commitlint": "^17.5.1",
+        "core-js": "^3.8.3",
+        "cz-conventional-changelog": "^3.3.0",
+        "eslint": "^8.41.0",
+        "eslint-plugin-vue": "8.0.3",
+        "ficus-editor": "1.1.28",
+        "ficus-simple-mindmap": "0.5.12",
+        "fs-extra": "^11.1.1",
+        "husky": "^8.0.3",
+        "js-yaml": "^4.1.0",
+        "mocha": "^10.2.0",
+        "nyc": "^15.1.0",
+        "os": "^0.1.2",
+        "path": "^0.12.7",
+        "postcss": "8.x",
+        "request-progress": "^3.0.0",
+        "standard": "^17.1.0",
+        "tailwindcss": "2.0.4",
+        "unplugin-auto-import": "^0.11.4",
+        "unplugin-vue-components": "^0.22.9",
+        "v-contextmenu": "^3.0.0",
+        "vue": "^3.2.13",
+        "vue-template-compiler": "2.6.12",
+        "vue3-eventbus": "^2.0.0",
+        "vuedraggable": "^4.0.1",
+        "vuex": "^4.1.0",
+        "wdio-chromedriver-service": "^8.1.1"
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/vue3-essential",
+            "eslint:recommended"
+        ],
+        "parserOptions": {
+            "parser": "@babel/eslint-parser"
+        },
+        "rules": {}
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead",
+        "not ie 11"
     ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
+    "config": {
+        "commitizen": {
+            "path": "cz-conventional-changelog"
+        }
     },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead",
-    "not ie 11"
-  ]
+    "husky": {
+        "hooks": {
+            "pre-commit": "eslint .",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "standard-version": {
+        "changelogHeader": "# Changelog\n\n所有项目的变更记录会记录在如下文件.\n",
+        "dryRun": true
+    },
+    "win": {
+        "icon": "build/icon.png"
+    },
+    "linux": {
+        "icon": "build/icon.png"
+    },
+    "mac": {
+        "icon": "build/icon.png",
+        "fileAssociations": [
+            {
+                "ext": [
+                    "md"
+                ]
+            }
+        ],
+        "extendInfo": {
+            "CFBundleDocumentTypes": [
+                {
+                    "CFBundleTypeName": "Markdown Document",
+                    "CFBundleTypeRole": "Editor",
+                    "LSHandlerRank": "Owner",
+                    "LSItemContentTypes": [
+                        "com.apple.dt.document.markdown"
+                    ]
+                },
+                {
+                    "CFBundleTypeName": "Folder",
+                    "CFBundleTypeRole": "Viewer",
+                    "LSHandlerRank": "None",
+                    "LSItemContentTypes": [
+                        "public.folder"
+                    ]
+                }
+            ]
+        }
+    }
 }
