@@ -131,7 +131,8 @@ function isValidFolderPath (filePath) {
 
 async function fetchUserFiles (userId) {
   try {
-    const response = await fetch(`http://localhost:8080/file/${userId}`, {
+    const fileSystemUrl = process.env.VUE_APP_URL_FILE_SYSTEM
+    const response = await fetch(`${fileSystemUrl}/file/${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

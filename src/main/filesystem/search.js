@@ -66,7 +66,8 @@ export class SearchEngine {
     try {
       console.log('_getFile-uid', uid)
       uid = 1 // 暂时将uid 写死为1
-      const response = await fetch(`http://localhost:8080/file/${uid}`, {
+      const fileSystemUrl = process.env.VUE_APP_URL_FILE_SYSTEM
+      const response = await fetch(`${fileSystemUrl}/file/${uid}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
