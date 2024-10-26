@@ -37,7 +37,8 @@ export default {
       try {
         // 发送注册请求到后端 API
         // console.log(this.username, this.password)
-        const response = await axios.post('http://localhost:8082/register', {
+        const authUrl = process.env.VUE_APP_URL_AUTHENTICATION
+        const response = await axios.post(`${authUrl}/register`, {
           username: String(this.username),
           password: String(this.password)
         })

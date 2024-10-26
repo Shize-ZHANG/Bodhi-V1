@@ -43,8 +43,8 @@ export class SearchEngine {
       if (f.type === 'folder' || !isMarkdownExtname(f.url)) continue
       const content = (await readFile(f.url)).content
       if (content.toString().indexOf(token) !== -1) {
-        console.log('push', f.name)
-        this.results.push(f.name)
+        console.log('push', f)
+        this.results.push(f)
       }
     }
   }
@@ -66,7 +66,8 @@ export class SearchEngine {
     try {
       console.log('_getFile-uid', uid)
       uid = 1 // 暂时将uid 写死为1
-      const response = await fetch(`http://localhost:8080/file/${uid}`, {
+      const fileSystemUrl = process.env.VUE_APP_URL_FILE_SYSTEM
+      const response = await fetch(`${fileSystemUrl}/file/${uid}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

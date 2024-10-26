@@ -320,8 +320,9 @@ export default {
       }
     }
 
+    const fileSystemUrl = process.env.VUE_APP_URL_FILE_SYSTEM
     function createNewFile (userId, folderPath, parentId, fileName) {
-      fetch('http://localhost:8080/file/create/file', {
+      fetch(`${fileSystemUrl}/file/create/file`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

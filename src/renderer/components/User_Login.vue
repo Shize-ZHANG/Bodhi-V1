@@ -39,7 +39,8 @@ export default {
     async submitLogin () {
       try {
         // 发送登录请求到后端 API
-        const response = await axios.post('http://localhost:8082/login', {
+        const authUrl = process.env.VUE_APP_URL_AUTHENTICATION
+        const response = await axios.post(`${authUrl}/login`, {
           username: String(this.username),
           password: String(this.password)
         })
