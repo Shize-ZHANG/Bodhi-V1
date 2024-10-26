@@ -260,6 +260,7 @@ export default {
 
     // 打开文件夹
     bus.on('openDir', (obj) => {
+      console.log('bus.on openDir时，obj是：', obj)
       data.value = [obj]
       if (store.getters.getMode === 3) {
         bus.emit('changeToGraph')
@@ -371,7 +372,6 @@ export default {
     async function handleNew () {
       if (dialogName.value === '新建文件') {
         fileName.value = namifyMarkdownFile(fileName.value)
-        console.log('zkk_newfile111', father)
       }
       if (!nameValidTest(fileName.value)) {
         bus.emit('showMyAlert', { message: '文件名或文件夹名非法' })
@@ -384,7 +384,6 @@ export default {
         }
         if (dialogName.value === '新建文件') {
           // window.electronAPI.newFileFromSidebar(father.value.path, fileName.value)
-          console.log('zkk_newfile', father)
           createNewFile(father.value.path, fileName.value)
         } else {
           // window.electronAPI.newFolderFromSidebar(father.value.path, fileName.value)

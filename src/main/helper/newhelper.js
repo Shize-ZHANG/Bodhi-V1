@@ -139,6 +139,8 @@ async function fetchUserFiles (userId) {
     })
 
     const data1 = await response.json() // 解析 JSON 响应
+    console.log('response status是：', response.status)
+    console.log('data1是：', data1)
     if (response.status === 200) {
       console.log('User files:', data1[0]) // 假设后端返回的文件信息在 data.files 中
     } else {

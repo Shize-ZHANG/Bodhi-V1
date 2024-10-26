@@ -180,14 +180,12 @@ export default {
         openFiles.value.push(obj)
         update()
       }
-      console.log('zkk66_2')
       store.dispatch('files/setCurrentFile', { url: obj.url }).then(() => {
         obj.content = store.getters['files/markdown']
         if (store.getters.getMode === -1) {
           // 正在展示欢迎界面，默认进入纯文本模式
           bus.emit('changeMode', 0)
         }
-        console.log('zkk99_2', obj)
         bus.emit('sendToTextUI', obj)
         const index = getIndex(obj)
         if (index !== -1) {
@@ -211,7 +209,6 @@ export default {
         if (mode !== -1) {
           // 工作区有打开文件
           store.dispatch('updateMode', { value })
-          console.log('zkk99_3', curObj.value)
           bus.emit('sendToTextUI', curObj.value)
         } else {
           store.dispatch('updateMode', { value })
@@ -343,27 +340,24 @@ export default {
       }
     }
 
-    function getDirectoryName (path) {
-      const segments = path.split('/')
-      segments.pop()
-      return segments.join('/') || '/'
-    }
-    let BodhiPath
-    function changePath (tarpath) {
-      BodhiPath = getDirectoryName(tarpath)
-      console.log('zkk: changepath', BodhiPath)
-    }
+    // function getDirectoryName (path) {
+    //   const segments = path.split('/')
+    //   segments.pop()
+    //   return segments.join('/') || '/'
+    // }
+    // //let BodhiPath
+    // function changePath (tarpath) {
+    //   BodhiPath = getDirectoryName(tarpath)
+    // }
 
     // TextUI接口，更新textUI的展示内容
     bus.on('sendToTextUI', (obj) => {
       // 写回content
       writeBack()
-      console.log('zkk66_1', obj.url)
       store.dispatch('files/setCurrentFile', { url: obj.url }).then(() => {
         content.value = store.getters['files/markdown']
         curObj.value = obj
-        console.log('zkk', curObj.value.path)
-        changePath(curObj.value.path)
+        // changePath(curObj.value.path)
         // window.electronAPI.changePath(curObj.value.path)
         if (curObj.value.name !== '') {
           getOutLine()
@@ -399,7 +393,6 @@ export default {
       if (curObj.value.path === obj.path) {
         index = Math.max(index - 1, 0)
         if (openFiles.value.length !== 0) {
-          console.log('zkk99_4', openFiles.value[index])
           bus.emit('sendToTextUI', openFiles.value[index])
         } else {
           clearCurObj()
@@ -412,7 +405,6 @@ export default {
       openFiles.value.length = 0
       openFiles.value.push(obj)
       if (curObj.value.path !== obj.path) {
-        console.log('zkk99_5', obj)
         bus.emit('sendToTextUI', obj)
       }
       update()
