@@ -154,6 +154,7 @@
 import { ref } from 'vue'
 import bus from 'vue3-eventbus'
 import { getBasename } from '@/main/helper/newhelper'
+import LinkManager from '@/main/filesystem/linkManager'
 
 export default {
   name: 'PropBar',
@@ -173,7 +174,8 @@ export default {
     bus.on('showAllTag', async (value) => {
       all.value = value
       if (value === 2) {
-        allTag.value = await window.electronAPI.getTags()
+        // allTag.value = await window.electronAPI.getTags()
+        allTag.value = LinkManager.getInstance().findTags()
       }
     })
 
@@ -221,7 +223,7 @@ export default {
         path,
         type: 'file',
         offset: -1,
-        absolutePath: path.split(window.pathAPI.sep)
+        absolutePath: path.split('/')
       }
       bus.emit('openNewTab', obj)
     }
