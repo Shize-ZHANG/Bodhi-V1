@@ -117,7 +117,7 @@ const mutations = {
         // name: window.pathAPI.basename(filepath),
         name: getBasename(filepath),
         path: filepath,
-        absolutePath: filepath.split(window.pathAPI.sep),
+        absolutePath: filepath.split('/'),
         type: 'file',
         offset: -1
       })
