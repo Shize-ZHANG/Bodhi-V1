@@ -169,11 +169,9 @@ export default defineComponent({
     let preMode = -1
 
     onMounted(() => {
-      console.log('zkk_fictree3')
       MindMap.usePlugin(Drag)
       MindMap.usePlugin(Export)
       MindMap.usePlugin(KeyboardNavigation)
-      console.log('zkk_fictree4')
       MindMap.defineTheme('theme0', {
         backgroundColor: '#fff',
         lineColor: '#F2E3DB',

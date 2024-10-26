@@ -21,7 +21,6 @@ class Content {
   }
 
   getMindJson () {
-    console.log('zkk_fictree20', this.text || this.typename, this.text, this.typename)
     return {
       data: {
         name: this.text,
@@ -101,7 +100,6 @@ class FrontmatterContent extends Content {
 
   getMindJson () {
     const yamlData = yaml.dump(this.data)
-    console.log('zkk_fictree15', yaml.dump(this.data))
     return {
       data: {
         name: yamlData,
@@ -114,7 +112,6 @@ class FrontmatterContent extends Content {
 }
 class RootContent extends Content {
   constructor (filename) {
-    console.log('zkk_fictree:', filename)
     super(rootTypeName, filename)
     this.isBlock = true
   }
