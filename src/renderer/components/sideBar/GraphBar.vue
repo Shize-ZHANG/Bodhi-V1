@@ -90,6 +90,7 @@ import GraphItem from '@/renderer/components/sideBar/GraphItem'
 import { ref, toRaw } from 'vue'
 import store from '@/renderer/store'
 import FileSystem from '@/main/filesystem'
+import linkManager from '@/main/filesystem/linkManager'
 
 export default {
   name: 'GraphBar',
@@ -159,9 +160,12 @@ export default {
           node.value.children[i].name = node.value.path
         }
       } else if (obj.category === 1) {
-        node.value = await window.electronAPI.getFileCiteTraverse(obj.path)
+        // node.value = await window.electronAPI.getFileCiteTraverse(obj.path)
+        console.log('node.value.obj.path: ', obj.path)
+        node.value = linkManager.getInstance().getFileCiteTraverseInfo(obj.path)
       } else if (obj.category === 2) {
-        node.value = await window.electronAPI.getTagGroups(obj.name)
+        // node.value = await window.electronAPI.getTagGroups(obj.name)
+        node.value = linkManager.getInstance().getTagGroups(obj.name)
       }
     })
 
