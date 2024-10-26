@@ -43,8 +43,8 @@ export class SearchEngine {
       if (f.type === 'folder' || !isMarkdownExtname(f.url)) continue
       const content = (await readFile(f.url)).content
       if (content.toString().indexOf(token) !== -1) {
-        console.log('push', f.name)
-        this.results.push(f.name)
+        console.log('push', f)
+        this.results.push(f)
       }
     }
   }

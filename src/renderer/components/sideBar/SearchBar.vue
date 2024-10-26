@@ -20,9 +20,9 @@
     </button>
   </div>
   <ul style="margin-top: 40px" class="pl-2 pr-4" v-if="searchResult.length !== 0">
-  <li v-for="(path, index) in searchResult"
+  <li v-for="(f, index) in searchResult"
       :key="index"
-      @click="toggle(path)"
+      @click="toggle(f)"
       class="hover:bg-white hover:shadow transition-all rounded-lg p-2">
     <a href="#" style="display: flex" class="items-center content-center relBarItem">
       <div>
@@ -64,10 +64,10 @@
       </div>
       <div class="pl-2 overflow-hidden" :title="path">
         <div style="font-size: 12px; text-overflow: ellipsis; white-space: nowrap">
-          {{ getName(path) }}
+          {{ f.name }}
         </div>
         <div style="font-size: 10px; color: #666A70; text-overflow: ellipsis; white-space: nowrap">
-          {{ path }}
+          {{ f.path }}
         </div>
       </div>
     </a>
@@ -116,14 +116,16 @@ export default {
       console.log('search results: ', searchResult.value)
     }
 
-    function toggle (path) {
+    function toggle (f) {
       const obj = {
         // name: window.pathAPI.basename(path),
-        name: getBasename(path),
-        path,
+        name: f.name,
+        path: f.path,
         type: 'file',
         offset: -1,
-        absolutePath: '/'
+        absolutePath: f.absolutePath,
+        url: f.url,
+        children: f.children
       }
       bus.emit('openNewTab', obj)
     }
