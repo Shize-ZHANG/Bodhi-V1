@@ -174,6 +174,7 @@ export default {
       if (index === 1) {
         curItem.value.curChild = -1
         expanded.value = !expanded.value
+        console.log('康康toggle这会的props：', props)
 
         if (props.item.type === 'file') {
           bus.emit('openNewTab', props.item)
