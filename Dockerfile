@@ -16,8 +16,8 @@ RUN yarn build
 
 RUN yarn global add serve
 
-# 打开容器的 80 端口
-EXPOSE 80
+# 打开容器的 8087 端口
+EXPOSE 8087
 
 # 运行应用
 CMD ["serve", "-s", "dist", "-l", "80"]
