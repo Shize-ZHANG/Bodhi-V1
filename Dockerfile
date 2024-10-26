@@ -20,4 +20,4 @@ RUN yarn global add serve
 EXPOSE 8087
 
 # 运行应用
-CMD ["serve", "-s", "dist", "-l", "80"]
+CMD ["serve", "-s", "dist", "-l", "8087"]
