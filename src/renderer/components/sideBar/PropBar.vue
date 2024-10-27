@@ -1,7 +1,7 @@
 <template>
   <div class="pl-2 pr-4" v-if="all === 1">
     <div style="font-size: 12px">
-      当前文档下共有 {{ tags.length }} 个标签
+      There are {{ tags.length }} tags in the current document.
     </div>
     <div class="items-center w-full content-center my-2">
       <!-- 在具体实现方面，可以通过一个 v-for 维护 -->
@@ -38,7 +38,7 @@
               class="block text-gray-700 text-xs font-normal mr-2 my-2 px-3 py-1 inline-flex items-center hover:shadow-sm transition duration placeholder-gray focus:ring-0 rounded-md"
               id="newTag"
               style="width: 80%;"
-              placeholder="输入新标签..."
+              placeholder="Enter a new tab..."
               @keyup.enter="handleAddTag(keyWord)"
           />
         <div class="flex" style="position: absolute; right: 0">
@@ -67,7 +67,7 @@
   </div>
   <div class="pl-2 pr-4" v-if="all === 2">
     <div style="font-size: 12px">
-      当前工作区共有 {{ allTag.length }} 个标签
+      The current workspace has {{ allTag.length }} tags.
     </div>
     <div class="items-center content-center my-2">
       <div style="max-width: 250px">
@@ -92,7 +92,7 @@
     </div>
     <hr style="border: none;border-top: 2px solid #ccc;height: 1px;margin: 20px 0;">
     <div style="font-size: 12px">
-      当前标签关联 {{ tagged.length }} 个文档
+      The current tag is associated with {{ tagged.length }} document.
     </div>
     <ul style="margin-top: 15px">
       <li v-for="(path, index) in tagged"
