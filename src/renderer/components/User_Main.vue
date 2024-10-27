@@ -45,11 +45,11 @@
         <div class="flex items-center justify-end p-1 border-t border-solid border-blueGray-200 rounded-b">
           <button class="text-red-500 hover:text-blueGray-400 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button" @click="handle">
-            确认
+            Confirm
           </button>
           <button class="text-red-500 hover:text-blueGray-400 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button" @click="showDialog = false">
-            关闭
+            Close
           </button>
         </div>
       </div>
@@ -163,7 +163,7 @@ export default {
       }
 
       bus.on('showDialogForNewFile', (obj) => {
-        dialogName.value = (obj.type === 'file') ? '新建文件' : '新建文件夹'
+        dialogName.value = (obj.type === 'file') ? 'Create New File' : 'Create New Folder'
         father.value = obj.father
         mode = 0
         openModal()
@@ -271,9 +271,9 @@ export default {
       }
     }
 
-    // 新建文件/文件夹
+    // Create New File/文件夹
     async function handleNew () {
-      if (dialogName.value === '新建文件') {
+      if (dialogName.value === 'Create New File') {
         fileName.value = namifyMarkdownFile(fileName.value)
       }
       if (!nameValidTest(fileName.value)) {
@@ -285,7 +285,7 @@ export default {
           fileName.value = ''
           return
         }
-        if (dialogName.value === '新建文件') {
+        if (dialogName.value === 'Create New File') {
           window.electronAPI.newFileFromSidebar(father.value.path, fileName.value)
         } else {
           window.electronAPI.newFolderFromSidebar(father.value.path, fileName.value)
@@ -295,7 +295,7 @@ export default {
           paths.push(father.value.absolutePath[i])
         }
         paths.push(fileName.value)
-        const fileType = (dialogName.value === '新建文件') ? 'file' : 'folder'
+        const fileType = (dialogName.value === 'Create New File') ? 'file' : 'folder'
         const obj = {
           name: fileName.value,
           // path: path.join(father.value.path, fileName.value),

@@ -2,51 +2,51 @@
   <div ref="pageContent" style="user-select: none; background: right bottom;" class="px-24 bg-scroll bg-cover"
        :style="bgURL">
     <div v-show="preMode === 0" class="preferences">
-      <div class="title-font my-6" style="font-size: 40px" >通用</div>
+      <div class="title-font my-6" style="font-size: 40px" >General</div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">保存</div>
-        <label>自动保存间隔（s）：</label>
+        <div class="font-bold my-4" style="font-size: 20px">Save</div>
+        <label>Autosave interval (s):</label>
         <input type="number" v-model="common.saveTime" class="numberInput rounded-md" min="0" max="100"> s<br/>
-        <label>自动保存：</label>
+        <label>Autosave:</label>
         <input type="checkbox" v-model="common.autoSave" class="checkboxInput">
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">全屏</div>
-        <label>启动时自动全屏：</label>
+        <div class="font-bold my-4" style="font-size: 20px">Full Screen</div>
+        <label>Automatic full screen at startup:</label>
         <input type="checkbox" v-model="common.autoFullScreen" class="checkboxInput">
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">更新</div>
-        <label>启动时自动更新：</label>
+        <div class="font-bold my-4" style="font-size: 20px">Update</div>
+        <label>Automatic update at startup:</label>
         <input type="checkbox" v-model="common.autoUpdate" class="checkboxInput">
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">侧边栏</div>
-        <label>启动时侧边宽度：</label>
+        <div class="font-bold my-4" style="font-size: 20px">Side-bar</div>
+        <label>Side width at startup:</label>
         <input type="number" v-model="common.sideBarInitWidth" class="numberInput rounded-md" min="280" max="400"> px
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">忽略文件/文件夹（请用换行符分隔）</div>
+        <div class="font-bold my-4" style="font-size: 20px">Ignore files/folders (please separate with \n)</div>
         <textarea class="numberInput rounded-md p-2 text-gray-700 w-full" style="height: 100px" v-model="ficus.graphSetting.ficusIgnore"/>
       </div>
 
     </div>
     <div v-show="preMode === 1" class="preferences">
-      <div class="title-font my-6" style="font-size: 40px">编辑器</div>
+      <div class="title-font my-6" style="font-size: 40px">Editor</div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">行号</div>
-        <label>显示代码块行号：</label>
+        <div class="font-bold my-4" style="font-size: 20px">Row Number</div>
+        <label>Displays the code block row number:</label>
         <input type="checkbox" v-model="editor.showLineNumber" class="checkboxInput">
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">图片保存路径</div>
+        <div class="font-bold my-4" style="font-size: 20px">Image Save Path</div>
         <div class="rounded-md p-2 border-2 align-middle flex relative" style="color: #565656"
              @click="showImgSelection = !showImgSelection">
           {{ imgOption[imgPath] }}
@@ -64,23 +64,23 @@
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">悬浮栏选项</div>
-        <label>加粗：</label>
+        <div class="font-bold my-4" style="font-size: 20px">Hover bar options</div>
+        <label>Bolding:</label>
         <input type="checkbox" v-model="editor.toolBar.bold" class="checkboxInput"><br/>
-        <label>斜体：</label>
+        <label>Italics:</label>
         <input type="checkbox" v-model="editor.toolBar.italic" class="checkboxInput"><br/>
-        <label>高亮：</label>
+        <label>Highlight:</label>
         <input type="checkbox" v-model="editor.toolBar.strike" class="checkboxInput"><br/>
-        <label>行内代码：</label>
+        <label>In-line code:</label>
         <input type="checkbox" v-model="editor.toolBar.inlineCode" class="checkboxInput"><br/>
-        <label>行内公式：</label>
+        <label>In-line formulas:</label>
         <input type="checkbox" v-model="editor.toolBar.inlineMath" class="checkboxInput"><br/>
-        <label>清除样式：</label>
+        <label>Clear the style:</label>
         <input type="checkbox" v-model="editor.toolBar.clear" class="checkboxInput">
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">公式</div>
+        <div class="font-bold my-4" style="font-size: 20px">Formula</div>
         <div class="rounded-md p-2 border-2 align-middle flex relative" style="color: #565656"
              @click="showLatexSelection = !showLatexSelection">
           {{ latexOption[latexPath] }}
@@ -98,7 +98,7 @@
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">代码主题</div>
+        <div class="font-bold my-4" style="font-size: 20px">Code Topics</div>
         <div class="rounded-md p-2 border-2 align-middle flex relative" style="color: #565656"
              @click="showCodeSelection = !showCodeSelection">
           {{ codeOption[codePath] }}
@@ -116,22 +116,22 @@
       </div>
 
       <div class="preference-item">
-        <div class="font-bold" style="font-size: 20px">其他</div>
-        <label>渲染区域自动加空格：</label>
+        <div class="font-bold" style="font-size: 20px">Others</div>
+        <label>Rendering area automatically add space:</label>
         <input type="checkbox" v-model="editor.autoSpace" class="checkboxInput"><br>
-        <label>自动矫正术语：</label>
+        <label>Autocorrect terminology:</label>
         <input type="checkbox" v-model="editor.autoFixTermTypo" class="checkboxInput">
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">源码</div>
-        <label>预览渲染结果：</label>
+        <div class="font-bold my-4" style="font-size: 20px">Source code </div>
+        <label>Preview the rendering results:</label>
         <input type="checkbox" v-model="editor.svPreview" class="checkboxInput">
       </div>
     </div>
 
     <div v-show="preMode === 2" class="preferences">
-      <div class="title-font my-6" style="font-size: 40px">快捷键</div>
+      <div class="title-font my-6" style="font-size: 40px">Shortcut key</div>
       <ul>
         <li v-for="(value, key) in shortcuts" :key="key" class="preference-item">
           <label>{{ getKeyName(key) }}：</label>
@@ -141,14 +141,14 @@
         </li>
       </ul>
       <button class="optionBtn py-1 flex align-middle justify-center content-center" style="text-align: center" @click="clearUserKeyBinding">
-        恢复默认设置
+        Restore default settings
       </button>
     </div>
 
     <div v-show="preMode === 3" class="preferences">
-      <div class="title-font my-6" style="font-size: 40px">榕功能</div>
+      <div class="title-font my-6" style="font-size: 40px">Bodhi Function</div>
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">榕树默认展开级数</div>
+        <div class="font-bold my-4" style="font-size: 20px">Bodhi Default Expansion Levels</div>
         <div class="rounded-md p-2 border-2 align-middle flex relative" style="color: #565656"
                @click="showTreeLevelSelection = !showTreeLevelSelection">
             {{ treeLevelOption[treeLevelPath] }}
@@ -166,7 +166,7 @@
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">榕树默认显示结构</div>
+        <div class="font-bold my-4" style="font-size: 20px">Bodhi default display structure</div>
         <div class="rounded-md p-2 border-2 align-middle flex relative" style="color: #565656"
              @click="showTreeStructSelection = !showTreeStructSelection">
           {{ treeStructOption[treeStructPath] }}
@@ -184,7 +184,7 @@
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">榕树主题</div>
+        <div class="font-bold my-4" style="font-size: 20px">Bodhi theme</div>
         <div class="rounded-md p-2 border-2 align-middle flex relative" style="color: #565656"
              @click="showTreeThemeSelection = !showTreeThemeSelection">
           {{ treeThemeOption[treeThemePath] }}
@@ -207,7 +207,7 @@
       </div>
 
       <div class="preference-item">
-        <div class="font-bold my-4" style="font-size: 20px">榕图主题</div>
+        <div class="font-bold my-4" style="font-size: 20px">Bodhi graph themes</div>
         <div class="rounded-md p-2 border-2 align-middle flex relative" style="color: #565656"
              @click="showGraphThemeSelection = !showGraphThemeSelection">
           {{ graphThemeOption[graphThemePath] }}
@@ -250,7 +250,7 @@ export default {
     const imgPath = ref(0) // 0-无特殊操作, 1-复制图片到当前文件夹, 2-复制图片到./${filename}.assets文件夹, 3-上传图片, 4-复制到指定路径
     const showImgSelection = ref(false)
     /* eslint-disable no-template-curly-in-string */
-    const imgOption = ['无特殊操作', '复制图片到当前文件夹']
+    const imgOption = ['No special operations', 'Copy image to current folder']
     const editor = store.getters.getEditor
     const shortcuts = store.getters.getShortCuts
     const ficus = store.getters.getFicus
@@ -267,22 +267,22 @@ export default {
     const treeLevelPath = ref(0) // -1, 0, 1 ~ 6 分别对应上述的选项，默认值为 -1
     const showTreeLevelSelection = ref(false)
     /* eslint-disable no-template-curly-in-string */
-    const treeLevelOption = ['折叠全部', '展开全部', '展开到第 1 级', '展开到第 2 级', '展开到第 3 级', '展开到第 4 级', '展开到第 5 级', '展开到第 6 级']
+    const treeLevelOption = ['Collapse All', 'Expand all', 'Expand to Level 1', 'Expand to level 2', 'Expand to level 3', 'Expand to level 4', 'Expand to level 5', 'Expand to level 6']
 
     const treeStructPath = ref(0) // 0, 1, 2, 3, 4 分别对应上述的选项，默认值为 0
     const showTreeStructSelection = ref(false)
     /* eslint-disable no-template-curly-in-string */
-    const treeStructOption = ['逻辑结构图', '思维导图', '目录组织图', '时间轴', '鱼骨图']
+    const treeStructOption = ['Logical structure chart', 'Mind map', 'Catalogue organisation chart', 'Timeline', 'Fishbone diagram']
 
     const treeThemePath = ref(0) // // 0, 1, 2 分别对应上述的 3 个主题，默认值为 0
     const showTreeThemeSelection = ref(false)
     /* eslint-disable no-template-curly-in-string */
-    const treeThemeOption = ['山亭夏日', '露花倒影', '落虹灼春']
+    const treeThemeOption = ['Summer Days in the Mountain Pavilion', 'Dew Blossoms Reflecting', 'Fading Rainboes of Scorching Spring']
 
     const graphThemePath = ref(0) // // 0, 1, 2 分别对应上述的 3 个主题，默认值为 0
     const showGraphThemeSelection = ref(false)
     /* eslint-disable no-template-curly-in-string */
-    const graphThemeOption = ['山亭夏日', '露花倒影', '落虹灼春']
+    const graphThemeOption = ['Summer Days in the Mountain Pavilion', 'Dew Blossoms Reflecting', 'Fading Rainboes of Scorching Spring']
 
     bus.on('initPreOpt', () => {
       imgPath.value = editor.imgPath
