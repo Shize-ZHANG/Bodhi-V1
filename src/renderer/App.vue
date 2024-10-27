@@ -349,7 +349,7 @@ export default {
     }
 
     function createNewFolder (userId, folderPath, parentId, folderName) {
-      fetch('http://localhost:8080/file/create/folder', {
+      fetch(`${fileSystemUrl}/file/create/folder`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

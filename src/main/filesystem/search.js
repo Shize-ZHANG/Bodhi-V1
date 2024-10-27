@@ -40,7 +40,7 @@ export class SearchEngine {
     // }
     console.log('this.root[] is: ', this.root1)
     for (const f of this.root1.children) {
-      if (f.type === 'folder' || !isMarkdownExtname(f.url)) continue
+      if (f.type === 'folder' || !isMarkdownExtname(f.url) || !f.url) continue
       const content = (await readFile(f.url)).content
       if (content.toString().indexOf(token) !== -1) {
         console.log('push', f)
