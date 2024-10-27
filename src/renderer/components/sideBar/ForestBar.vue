@@ -1,27 +1,27 @@
 <template>
   <div class="place-content-center content-center justify-center flex flex-wrap">
     <button class="optionBtn py-1 flex align-middle justify-center content-center" style="text-align: center" @click="handleClear">
-      清除
+      Clear
     </button>
   </div>
   <div class="place-content-center content-center justify-center flex flex-wrap">
     <button class="optionBtn py-1 flex align-middle justify-center content-center" style="text-align: center" @click="handleNewSet">
-      新建基底
+      New Base Root
     </button>
   </div>
   <div class="place-content-center content-center justify-center flex flex-wrap">
     <button class="optionBtn py-1 flex align-middle justify-center content-center" style="text-align: center" @click="handleOutput">
-      导出
+      Export
     </button>
   </div>
   <div class="mt-5 place-content-center content-center justify-center flex flex-wrap">
     <a href="#" class="flex p-4 optionBar" @click="getDataBy(1)"
          :style="dataOption === 1 ? `color: #42b983; font-weight: 900; background-color: #eeeeee` : `color: #565656`">
-      榕根选择
+      Choose Bodhi Root
     </a>
     <a href="#" class="flex p-4 optionBar" @click="getDataBy(2)"
          :style="dataOption === 2 ? `color: #42b983; font-weight: 900; background-color: #eeeeee` : `color: #565656`">
-      榕柱选择
+      Choose Bodhi Trunk
     </a>
   </div>
   <div class="my-1 pl-2 pr-2 content-center items-center w-full mt-2">
@@ -96,7 +96,7 @@ export default {
       dataOption.value = option
       if (option === 1) {
         if (props.data.length === 0) {
-          bus.emit('showMyAlert', { message: '请先打开文件夹' })
+          bus.emit('showMyAlert', { message: 'Please open the folder first' })
         } else {
           files.value.length = 0
           files.value = getDataByArray(props.data)

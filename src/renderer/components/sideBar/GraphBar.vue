@@ -3,7 +3,7 @@
     <div class="mr-2 w-full">
       <input class="area-search-tab w-full px-2 placeholder-gray text-sm"
              style="font-family: 'Noto Sans SC'; font-weight: lighter; font-size: 12px" v-model="keyWord"
-             placeholder="搜索节点" type="text" @keyup.enter="handleSearch"/>
+             placeholder="Search Node" type="text" @keyup.enter="handleSearch"/>
     </div>
     <button class="searchBtn" @click="handleSearch">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1"
@@ -31,7 +31,7 @@
   </div>
   <div class="px-2" style="font-family: 'Noto Sans SC'">
     <div style="font-size: 14px" class="my-2 flex flex-wrap font-semibold content-center place-content-center">
-      节点信息
+      Node Info
       <div @click="showInfo = !showInfo" class="ml-2 foldIcon">
         <svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" v-if="showInfo"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" d="M11.47 5.22a.75.75 0 011.06 0l3.25 3.25a.75.75 0 01-1.06 1.06L12 6.81 9.28 9.53a.75.75 0 01-1.06-1.06l3.25-3.25z"></path><path fill-rule="evenodd" d="M12 5.5a.75.75 0 01.75.75v8a.75.75 0 01-1.5 0v-8A.75.75 0 0112 5.5zM10.75 18a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm-8 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm12 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm-8 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm12 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75z"></path></g></svg>
         <svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" v-else><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" d="M12 19a.75.75 0 01-.53-.22l-3.25-3.25a.75.75 0 111.06-1.06L12 17.19l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25A.75.75 0 0112 19z"></path><path fill-rule="evenodd" d="M12 18a.75.75 0 01-.75-.75v-7.5a.75.75 0 011.5 0v7.5A.75.75 0 0112 18zM10.75 6a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm-8 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1A.75.75 0 012.75 6zm12 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm-8 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1A.75.75 0 016.75 6zm12 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75z"></path></g></svg>
@@ -40,36 +40,36 @@
     <hr style="border: none;border-top: 1px solid #ccc;height: 1px;margin: 2px 0;">
     <div v-if="showInfo">
       <div class="nodeInfo mt-2" :title="node.name">
-        <div class="font-bold my-1" style="font-size: 14px; color: #565656"> 节点名 </div>
+        <div class="font-bold my-1" style="font-size: 14px; color: #565656"> Node Name </div>
         <div class="nodeSubInfo"> {{ node.name }} </div>
       </div>
       <div class="nodeInfo mt-2" v-if="type !== 2" :title="node.path">
-        <div class="font-bold my-1" style="font-size: 14px; color: #565656"> 节点路径 </div>
+        <div class="font-bold my-1" style="font-size: 14px; color: #565656"> Node Route </div>
         <div class="nodeSubInfo"> {{ node.path }} </div>
       </div>
       <div class="nodeInfo mt-2" >
         <div class="font-bold my-1" style="font-size: 14px; color: #565656">
-          节点详情
+          Node Detail
         </div>
         <div class="nodeSubInfo" v-if="type === 2">
-          该 tag 下有 {{ node.fileNum }} 个文件<br>
-          分别位于 {{ node.pathNum }} 个路径下
+          There are {{ node.fileNum }} files under this tag<br>
+           in {{ node.pathNum }} paths.
         </div>
         <div class="nodeSubInfo" v-else-if="type === 1">
-          该文件共引用 {{ node.citing }} 个文件<br>
-          被 {{ node.cited }} 个文件引用
+          This file references {{ node.citing }} files<br>
+           Referenced by {{ node.cited }} files
         </div>
         <div class="nodeSubInfo" v-else-if="type === 0">
-          文件夹节点
+          Floder Node
         </div>
         <div class="nodeSubInfo" v-else>
-          暂无节点信息
+          No node information
         </div>
       </div>
     </div>
 
     <div style="font-size: 14px" class="mt-8 mb-2 flex flex-wrap font-semibold content-center place-content-center">
-      节点操作
+      Node Operation
       <div @click="showOpt = !showOpt" class="ml-2 foldIcon">
         <svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" v-if="showOpt"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" d="M11.47 5.22a.75.75 0 011.06 0l3.25 3.25a.75.75 0 01-1.06 1.06L12 6.81 9.28 9.53a.75.75 0 01-1.06-1.06l3.25-3.25z"></path><path fill-rule="evenodd" d="M12 5.5a.75.75 0 01.75.75v8a.75.75 0 01-1.5 0v-8A.75.75 0 0112 5.5zM10.75 18a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm-8 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm12 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm-8 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm12 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75z"></path></g></svg>
         <svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" v-else><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" d="M12 19a.75.75 0 01-.53-.22l-3.25-3.25a.75.75 0 111.06-1.06L12 17.19l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25A.75.75 0 0112 19z"></path><path fill-rule="evenodd" d="M12 18a.75.75 0 01-.75-.75v-7.5a.75.75 0 011.5 0v7.5A.75.75 0 0112 18zM10.75 6a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm-8 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1A.75.75 0 012.75 6zm12 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75zm-8 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1A.75.75 0 016.75 6zm12 0a.75.75 0 01.75-.75h1a.75.75 0 010 1.5h-1a.75.75 0 01-.75-.75z"></path></g></svg>
@@ -117,7 +117,7 @@ export default {
     const showOpt = ref(true)
 
     function handleProcess () {
-      bus.emit('showMyAlert', { message: '敬请期待！' })
+      bus.emit('showMyAlert', { message: 'Stay tuned!' })
     }
 
     function quitGraph () {
@@ -171,8 +171,8 @@ export default {
 
     bus.on('clearGraphResult', () => {
       node.value = {
-        name: '未选中任何节点',
-        path: '无'
+        name: 'No nodes selected',
+        path: 'None'
       }
       type.value = -1
     })
