@@ -72,15 +72,15 @@
     <div>
       <v-contextmenu ref="contextmenu" >
         <div v-if="item.type === 'folder'">
-          <v-contextmenu-item @click="handleNew('file')" class="hover:bg-gray-200 text-gray-700">新建文件</v-contextmenu-item>
-          <v-contextmenu-item @click="handleNew('folder')" class="hover:bg-gray-200 text-gray-700">新建文件夹</v-contextmenu-item>
-          <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" @click="handlePaste">粘贴</v-contextmenu-item>
+          <v-contextmenu-item @click="handleNew('file')" class="hover:bg-gray-200 text-gray-700">New File</v-contextmenu-item>
+          <v-contextmenu-item @click="handleNew('folder')" class="hover:bg-gray-200 text-gray-700">New Folder</v-contextmenu-item>
+          <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" @click="handlePaste">Paste</v-contextmenu-item>
         </div>
-        <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" v-if="false">剪切</v-contextmenu-item>
-        <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" @click="handleCopyFileOrFolder">复制</v-contextmenu-item>
-        <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" @click="handleDelete" v-if="item.path !== topItem.path">删除</v-contextmenu-item>
-        <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" @click="handleRename" v-if="item.path !== topItem.path">重命名</v-contextmenu-item>
-        <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" v-if="item.type ==='file'" @click="handleCopyAbsolutePath">复制路径</v-contextmenu-item>
+        <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" v-if="false">Cut</v-contextmenu-item>
+        <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" @click="handleCopyFileOrFolder">Copy</v-contextmenu-item>
+        <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" @click="handleDelete" v-if="item.path !== topItem.path">Delete</v-contextmenu-item>
+        <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" @click="handleRename" v-if="item.path !== topItem.path">Rename</v-contextmenu-item>
+        <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" v-if="item.type ==='file'" @click="handleCopyAbsolutePath">Copy Path</v-contextmenu-item>
 <!--        <v-contextmenu-item class="hover:bg-gray-200 text-gray-700" v-if="item.type==='file'" @click="handleCopyPartPath">复制相对路径</v-contextmenu-item>-->
       </v-contextmenu>
     </div>

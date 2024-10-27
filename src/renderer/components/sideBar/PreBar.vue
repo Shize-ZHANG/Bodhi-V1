@@ -44,7 +44,7 @@
       </g>
     </svg>
     <div class="pl-4">
-      通用
+      General
     </div>
   </div>
   <div style="display: flex" class="items-center content-center relBarItem pl-2" @click="changePre(1)">
@@ -69,7 +69,7 @@
       </g>
     </svg>
     <div class="pl-4">
-      编辑器
+      Editor
     </div>
   </div>
   <div style="display: flex" class="items-center content-center relBarItem pl-2" @click="changePre(2)">
@@ -91,7 +91,7 @@
       </g>
     </svg>
     <div class="pl-4">
-      快捷键
+      Shortcut Key
     </div>
   </div>
   <div style="display: flex" class="items-center content-center relBarItem pl-2" @click="changePre(3)">
@@ -117,7 +117,7 @@
       </g>
     </svg>
     <div class="pl-4">
-      榕功能
+      Bodhi Function
     </div>
   </div>
 </template>

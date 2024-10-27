@@ -13,12 +13,12 @@
     <div v-if="navItems.length === 0" style="width: 100%;">
       <div style="display: flex; font-size: 13px" class="items-center content-center">
         <p class="pl-2">
-          无打开的文件夹。
+          No open folders.
         </p>
       </div>
       <button @click="handleOpenDir"
               class="openFolderBtn">
-        打开文件夹
+              Open the folder
       </button>
       <!-- <input type="file" class="openFolderBtn"> -->
     </div>
