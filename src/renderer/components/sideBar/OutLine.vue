@@ -10,14 +10,14 @@
     </ul>
     <div v-if="items === undefined || items.length === undefined || items.length === 0">
       <div style="font-size: 12px; font-family: 'Noto Sans SC'" class="pl-1">
-        大纲内容为空。
+        Outline Content Is Empty
       </div>
     </div>
   </div>
   <div v-if="mode === -1">
     <button @click="handleOpenFile"
             class="openFolderBtn">
-      打开文件
+      Open File
     </button>
   </div>
 </template>

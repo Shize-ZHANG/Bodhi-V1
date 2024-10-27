@@ -14,7 +14,7 @@
         </div>
       </span>
       <span class="inline-block align-middle mr-8">
-        <b class="capitalize mr-3">警告!</b>
+        <b class="capitalize mr-3">Warning!</b>
         {{ message }}
       </span>
       <button class="absolute bg-transparent text-2xl opacity-80 font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none hover:opacity-100"

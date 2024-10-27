@@ -44,7 +44,7 @@
   </ul>
 
   <div v-else style="font-size: 12px; color: #565656">
-    暂无结果
+    No results
   </div>
 
   <div class="mt-2 mb-4 place-content-center content-center justify-center flex flex-wrap"

@@ -4,7 +4,7 @@
       <input class="area-search-tab w-full px-2 placeholder-gray text-sm"
              style="font-family: 'Noto Sans SC'; font-weight: lighter; font-size: 12px"
              v-model="keyWord"
-             placeholder="全局搜索..." type="text" @keyup.enter="handleSearch"/>
+             placeholder="Global Search..." type="text" @keyup.enter="handleSearch"/>
     </div>
     <button class="searchBtn" @click="handleSearch">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1"
@@ -74,7 +74,7 @@
   </li>
 </ul>
   <div style="font-size: 12px; font-family: 'Noto Sans SC'; margin-top: 50px" class="pl-2" v-if="searchResult.length === 0">
-    没有匹配结果。
+    No Matching Result
   </div>
 </template>
 

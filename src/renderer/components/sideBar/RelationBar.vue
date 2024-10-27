@@ -1,7 +1,7 @@
 <template>
   <div class="pl-2 pr-4">
     <div style="font-size: 12px">
-      当前文档共引用 {{ cites.length }} 个文档
+      The current document references {{ cites.length }} documents.
     </div>
     <ul style="margin-top: 15px">
       <li v-for="(item, index) in cites"
@@ -59,7 +59,7 @@
     </ul>
     <hr style="border: none;border-top: 2px solid #ccc;height: 1px;margin: 20px 0;">
     <div style="font-size: 12px">
-      当前文档共被 {{ quoted.length }} 个文档引用
+      The current document is referenced by {{ quoted.length }} documents.
     </div>
     <ul style="margin-top: 15px">
       <li v-for="(item, index) in quoted"
