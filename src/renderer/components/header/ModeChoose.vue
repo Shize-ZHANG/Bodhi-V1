@@ -4,19 +4,19 @@
             :class="editMode === 0 ? `text-blueGray-800` : ``"
             :style="editMode === 0 ? `background-color: white; border-radius: 5px;` : ``"
             @click="changeEditMode(0)">
-      文本
+      Content
     </button>
     <button class="flex-grow modeTab hover:text-blueGray-800 text-gray-500 font-semibold shadow-sm"
             :class="editMode === 2 ? `text-blueGray-800` : ``"
             :style="editMode === 2 ? `background-color: white; border-radius: 5px;` : ``"
             @click="changeEditMode(2)">
-      榕树
+      Bodhi
     </button>
     <button class="flex-grow modeTab hover:text-blueGray-800 text-gray-500 font-semibold shadow-sm"
             :class="editMode === 1 ? `text-blueGray-800` : ``"
             :style="editMode === 1 ? `background-color: white; border-radius: 5px;` : ``"
             @click="changeEditMode(1)">
-      源码
+            Source code
     </button>
   </div>
 </template>
