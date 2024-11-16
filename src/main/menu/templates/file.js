@@ -2,9 +2,9 @@ import { isOsx } from '@/main/config'
 // import { app } from 'electron'
 export default function (keybindings, recentlyUsedDocuments) {
   const fileMenu = {
-    label: '文件',
+    label: 'File',
     submenu: [{
-      label: '新建文件',
+      label: 'Create New File',
       id: 'file.new-file',
       accelerator: keybindings.getAccelerator('file.new-file'),
       click (menuItem, browserWindow) {
@@ -13,14 +13,14 @@ export default function (keybindings, recentlyUsedDocuments) {
     }, {
       type: 'separator'
     }, {
-      label: '打开文件',
+      label: 'Open File',
       id: 'file.open-file',
       accelerator: keybindings.getAccelerator('file.open-file'),
       click (menuItem, browserWindow) {
         browserWindow.webContents.send('ficus::keyboard-event', { id: menuItem.id })
       }
     }, {
-      label: '打开文件夹',
+      label: 'Open Folder',
       id: 'file.open-folder',
       accelerator: keybindings.getAccelerator('file.open-folder'),
       click (menuItem, browserWindow) {
@@ -29,7 +29,7 @@ export default function (keybindings, recentlyUsedDocuments) {
     }]
   }
   const recentlyUsedMenu = {
-    label: '打开最近…',
+    label: 'Open Recent...',
     submenu: []
   }
   for (const item of recentlyUsedDocuments) {
@@ -49,7 +49,7 @@ export default function (keybindings, recentlyUsedDocuments) {
     type: 'separator',
     visible: recentlyUsedDocuments.length > 0
   }, {
-    label: '清空最近使用文件',
+    label: 'Clear recently used files',
     id: 'file.clear-recently-used-files',
     enabled: recentlyUsedDocuments.length > 0,
     click (menuItem, browserWindow) {
@@ -60,51 +60,51 @@ export default function (keybindings, recentlyUsedDocuments) {
   fileMenu.submenu.push({
     type: 'separator'
   }, {
-    label: '保存当前文件',
+    label: 'Save',
     id: 'file.save',
     accelerator: keybindings.getAccelerator('file.save'),
     click (menuItem, browserWindow) {
       browserWindow.webContents.send('ficus::keyboard-event', { id: menuItem.id })
     }
   }, {
-    label: '另存为',
+    label: 'Save-as',
     id: 'file.save-as',
     accelerator: keybindings.getAccelerator('file.save-as'),
     click (menuItem, browserWindow) {
       browserWindow.webContents.send('ficus::keyboard-event', { id: menuItem.id })
     }
   }, {
-    label: '重命名当前文件',
+    label: 'Rename',
     id: 'file.rename-file',
     accelerator: keybindings.getAccelerator('file.rename-file'),
     click (menuItem, browserWindow) {
       browserWindow.webContents.send('ficus::keyboard-event', { id: menuItem.id })
     }
   }, {
-    label: '关闭当前标签页',
+    label: 'Close tab',
     id: 'file.close-tab',
     accelerator: keybindings.getAccelerator('file.close-tab'),
     click (menuItem, browserWindow) {
       browserWindow.webContents.send('ficus::keyboard-event', { id: menuItem.id })
     }
   }, {
-    label: '导出文件',
+    label: 'Export File',
     submenu: [{
-      label: '导出HTML文件',
+      label: 'Export as HTML',
       id: 'file.export-as-html',
       accelerator: keybindings.getAccelerator('file.export-as-html'),
       click (menuItem, browserWindow) {
         browserWindow.webContents.send('ficus::keyboard-event', { id: menuItem.id })
       }
     }, {
-      label: '导出PDF文件',
+      label: 'Export as PDF',
       id: 'file.export-as-pdf',
       accelerator: keybindings.getAccelerator('file.export-as-pdf'),
       click (menuItem, browserWindow) {
         browserWindow.webContents.send('ficus::keyboard-event', { id: menuItem.id })
       }
     }, {
-      label: '导出PNG',
+      label: 'Export as PNG',
       id: 'file.export-as-png',
       accelerator: keybindings.getAccelerator('file.export-as-png'),
       click (menuItem, browserWindow) {
@@ -112,7 +112,7 @@ export default function (keybindings, recentlyUsedDocuments) {
       }
     }]
   }, {
-    label: '退出',
+    label: 'Quit',
     id: 'file.quit',
     accelerator: keybindings.getAccelerator('file.quit'),
     visible: !isOsx,
