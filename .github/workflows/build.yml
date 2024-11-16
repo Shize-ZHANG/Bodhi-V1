@@ -1,26 +1,52 @@
-name: HTML CI/CD Pipeline
+name: CI
 
 on:
   push:
-    branches: ["master"]
+    branches: [ master ] 
   pull_request:
-    branches: ["master"]
+    branches: [ master ]
 
 jobs:
   build:
+    name: 构建项目
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: 检出代码
         uses: actions/checkout@v3
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: 设置 Node.js 版本
+        uses: actions/setup-node@v3
         with:
-          ruby-version: '3.0'  #Ruby版本
+          node-version: '16.x'
 
-      - name: Install html-proofer
-        run: gem install html-proofer
+      - name: 安装依赖
+        run: yarn install
 
-    #   - name: Validate HTML
-    #     run: htmlproofer ./ --allow-hash-href
+      - name: 构建项目
+        run: yarn build
+
+  # test:
+  #   name: 测试项目
+  #   runs-on: ubuntu-latest
+  #   needs: build
+
+  #   steps:
+  #     - name: 检出代码
+  #       uses: actions/checkout@v3
+
+  #     - name: 设置 Node.js 版本
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '16.x'
+
+  #     - name: 安装依赖
+  #       run: yarn install
+
+  #     - name: 启动开发服务器
+  #       run: |
+  #         yarn serve &
+  #         sleep 10  # 等待服务器启动
+
+  #     - name: 运行测试
+  #       run: yarn test 
