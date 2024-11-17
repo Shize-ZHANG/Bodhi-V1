@@ -48,5 +48,5 @@ jobs:
           yarn serve &
           sleep 10
 
-      - name: 运行测试
+      - name: run test script
         run: yarn test 
