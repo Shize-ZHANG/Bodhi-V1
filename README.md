@@ -51,7 +51,7 @@ Bodhi is a Vue.js-based web application designed to provide efficient Markdown d
    yarn serve
    ```
 
-   Open `http://localhost:8080` in your browser to view the application.
+   Open `http://localhost:8081` in your browser to view the application.
 
 4. **Build for production**:
 
