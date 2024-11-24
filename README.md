@@ -13,8 +13,6 @@ Bodhi is a Vue.js-based web application designed to provide efficient Markdown d
   - [Project Structure](#project-structure)
   - [License](#license)
 
----
-
 ## Main Features
 
 - **Markdown Editor**: Supports real-time previews and advanced formatting, including images, code blocks, tables, and hyperlinks.
