@@ -1,21 +1,27 @@
 # Bodhi: Markdown Document Management and Visualization Platform
 
+<!-- PROJECT LOGO -->
+<p align="center">
+  <a href="https://github.com/Shize-ZHANG/Bodhi-V1">
+    <img src="readme_img/logo.png" alt="Logo" width="80" height="80">
+  </a>
+</p>
+
+
 Bodhi is a Vue.js-based web application designed to provide efficient Markdown document management and visualization features, helping users better organize and understand their content.
 
 ## Table of Contents
 
 - [Bodhi: Markdown Document Management and Visualization Platform](#bodhi-markdown-document-management-and-visualization-platform)
   - [Table of Contents](#table-of-contents)
-  - [Features](#features)
+  - [Main Features](#main-features)
   - [Quick Start](#quick-start)
     - [Prerequisites](#prerequisites)
     - [Installation Steps](#installation-steps)
   - [Project Structure](#project-structure)
   - [License](#license)
 
----
-
-## Features
+## Main Features
 
 - **Markdown Editor**: Supports real-time previews and advanced formatting, including images, code blocks, tables, and hyperlinks.
 - **Knowledge Visualization**: Offers tools like mind maps, tree diagrams, fishbone diagrams, and more to help users better organize and understand their documents.
@@ -51,7 +57,7 @@ Bodhi is a Vue.js-based web application designed to provide efficient Markdown d
    yarn serve
    ```
 
-   Open `http://localhost:8080` in your browser to view the application.
+   Open `http://localhost:8081` in your browser to view the application.
 
 4. **Build for production**:
 
