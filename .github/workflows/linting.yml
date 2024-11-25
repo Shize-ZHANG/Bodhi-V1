@@ -1,0 +1,27 @@
+name: "linting-tool-scan"
+
+on:
+  push:
+    branches: [githubcicd]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Run ESLint
+        run: |
+          npx eslint . --ext .js,.vue > ESLint-report
+
+      - name: Archive Linting Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: ESLint-report
+          path: |
+            ./ESLint-report
