@@ -1,8 +1,11 @@
 name: "linting-tool-scan"
 
 on:
-  push:
-    branches: [githubcicd]
+    push:
+      branches:
+        - '**'
+    pull_request:
+      branches: ["master"]
 
 jobs:
   test:
