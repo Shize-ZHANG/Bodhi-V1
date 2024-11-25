@@ -1,0 +1,36 @@
+name: "Linting Workflow"
+
+on:
+    push:
+      branches:
+        - '**'
+    pull_request:
+      branches: ["master"]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Dependencies
+        run: |
+          rm -f package-lock.json # 确保只使用 Yarn
+          yarn install --frozen-lockfile
+
+      - name: Run ESLint
+        run: |
+          npx eslint . --ext .js,.vue > ESLint-report || true
+
+      - name: Archive Lint Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: ESLint-report
+          path: ESLint-report
