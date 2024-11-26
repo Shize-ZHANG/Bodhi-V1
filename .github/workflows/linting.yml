@@ -1,4 +1,4 @@
-name: "Linting Workflow"
+name: "linting tool scan"
 
 on:
     push:
