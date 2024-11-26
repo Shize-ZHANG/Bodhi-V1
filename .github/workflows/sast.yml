@@ -1,5 +1,4 @@
-name: "sast scan"
-
+name: "sast-scan"
 on:
   push:
     branches:
@@ -8,54 +7,50 @@ on:
     branches: ["master"]
 
 jobs:
-  sast:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '11'
 
       - name: Install Dependencies
         run: |
-          rm -f package-lock.json
           yarn install --frozen-lockfile
-
-      - name: Download OWASP Dependency Check
+          
+      - name: Create Report Directory
+        run: |
+          mkdir -p reports
+          
+      - name: Download OWASP Dependency-Check
         run: |
           wget https://github.com/jeremylong/DependencyCheck/releases/download/v7.2.0/dependency-check-7.2.0-release.zip
           unzip dependency-check-7.2.0-release.zip
-
-      - name: Ensure Write Permission
-        run: chmod -R u+w .
-
-      - name: Run Dependency Check
+          chmod +x dependency-check/bin/dependency-check.sh
+          
+      - name: Run OWASP Dependency Check
+        env:
+          JAVA_OPTS: "-Xmx4G"
         run: |
           dependency-check/bin/dependency-check.sh \
-            --project "bodhi" \
-            --scan yarn.lock \
-            --format ALL \
-            --log odc-debug.log \
-            --out SAST-report.html || true
-
+            --project "vue-project" \
+            --scan . \
+            --format "HTML" \
+            --format "JSON" \
+            --out reports \
+            --log reports/odc-debug.log \
+            --failOnCVSS 11 \
+            --enableExperimental \
+            --prettyPrint || echo "Dependency-Check completed with findings"
+            
+      - name: Verify Report Generation
+        run: |
+          ls -la reports/
+          echo "Report file sizes:"
+          du -h reports/*
+          
       - name: Archive SAST Report
+        if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: SAST-report
-          path: SAST-report.html
-
-      - name: Archive Debug Logs
-        uses: actions/upload-artifact@v3
-        with:
-          name: odc-debug-log
-          path: odc-debug.log
+          name: dependency-check-reports
+          path: reports/
