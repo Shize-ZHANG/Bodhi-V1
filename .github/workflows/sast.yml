@@ -1,0 +1,56 @@
+name: "sast-scan"
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          yarn install --frozen-lockfile
+          
+      - name: Create Report Directory
+        run: |
+          mkdir -p reports
+          
+      - name: Download OWASP Dependency-Check
+        run: |
+          wget https://github.com/jeremylong/DependencyCheck/releases/download/v7.2.0/dependency-check-7.2.0-release.zip
+          unzip dependency-check-7.2.0-release.zip
+          chmod +x dependency-check/bin/dependency-check.sh
+          
+      - name: Run OWASP Dependency Check
+        env:
+          JAVA_OPTS: "-Xmx4G"
+        run: |
+          dependency-check/bin/dependency-check.sh \
+            --project "vue-project" \
+            --scan . \
+            --format "HTML" \
+            --format "JSON" \
+            --out reports \
+            --log reports/odc-debug.log \
+            --failOnCVSS 11 \
+            --enableExperimental \
+            --prettyPrint || echo "Dependency-Check completed with findings"
+            
+      - name: Verify Report Generation
+        run: |
+          ls -la reports/
+          echo "Report file sizes:"
+          du -h reports/*
+          
+      - name: Archive SAST Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: dependency-check-reports
+          path: reports/
