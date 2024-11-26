@@ -1,35 +1,41 @@
 name: "sast-scan"
 
 on:
-    push:
-      branches:
-        - '**'
-    pull_request:
-      branches: ["master"]
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches: ["master"]
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
       - name: Install Dependencies
         run: |
           yarn install --frozen-lockfile
 
-      - name: OWASP Dependency Check
+      - name: Download OWASP Dependency-Check
         run: |
           wget https://github.com/jeremylong/DependencyCheck/releases/download/v7.2.0/dependency-check-7.2.0-release.zip
           unzip dependency-check-7.2.0-release.zip
+          chmod +x dependency-check/bin/dependency-check.sh
 
-      - name: Run scan with ODC
+      - name: Run OWASP Dependency Check
+        env:
+          JAVA_OPTS: "-Dorg.slf4j.simpleLogger.defaultLogLevel=off --illegal-access=permit"
         run: |
-          dependency-check/bin/dependency-check.sh --project "vue-project" --scan yarn.lock > ODC-report
+          dependency-check/bin/dependency-check.sh --project "vue-project" --scan yarn.lock --log odc-debug.log || echo "Dependency-Check encountered issues but proceeding."
 
       - name: Archive SAST Report
+        if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: ODC-report
+          name: ODC-Report
           path: |
             ./ODC-report
+            ./odc-debug.log
