@@ -1,11 +1,11 @@
 name: "sast scan"
 
 on:
-    push:
-      branches:
-        - '**'
-    pull_request:
-      branches: ["master"]
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches: ["master"]
 
 jobs:
   sast:
@@ -20,6 +20,12 @@ jobs:
         with:
           node-version: 16
 
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
       - name: Install Dependencies
         run: |
           rm -f package-lock.json
@@ -30,12 +36,26 @@ jobs:
           wget https://github.com/jeremylong/DependencyCheck/releases/download/v7.2.0/dependency-check-7.2.0-release.zip
           unzip dependency-check-7.2.0-release.zip
 
+      - name: Ensure Write Permission
+        run: chmod -R u+w .
+
       - name: Run Dependency Check
         run: |
-          dependency-check/bin/dependency-check.sh --project "vue-project" --scan yarn.lock > SAST-report || true
+          dependency-check/bin/dependency-check.sh \
+            --project "bodhi" \
+            --scan yarn.lock \
+            --format ALL \
+            --log odc-debug.log \
+            --out SAST-report.html || true
 
       - name: Archive SAST Report
         uses: actions/upload-artifact@v3
         with:
           name: SAST-report
-          path: SAST-report
+          path: SAST-report.html
+
+      - name: Archive Debug Logs
+        uses: actions/upload-artifact@v3
+        with:
+          name: odc-debug-log
+          path: odc-debug.log
