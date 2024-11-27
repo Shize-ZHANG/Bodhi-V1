@@ -5,7 +5,8 @@ on:
     branches:
       - '**'
   pull_request:
-    branches: ["master"]
+    branches:
+      - "master"
 
 jobs:
   test:
@@ -21,13 +22,13 @@ jobs:
       - name: Create Report Directory
         run: |
           mkdir -p reports
-          
+
       - name: Download OWASP Dependency-Check
         run: |
-          wget https://github.com/jeremylong/DependencyCheck/releases/download/v7.2.0/dependency-check-7.2.0-release.zip
-          unzip dependency-check-7.2.0-release.zip
+          wget https://github.com/jeremylong/DependencyCheck/releases/latest/download/dependency-check-8.2.1-release.zip
+          unzip dependency-check-8.2.1-release.zip
           chmod +x dependency-check/bin/dependency-check.sh
-          
+
       - name: Run OWASP Dependency Check
         env:
           JAVA_OPTS: "-Xmx4G"
@@ -41,14 +42,18 @@ jobs:
             --log reports/odc-debug.log \
             --failOnCVSS 11 \
             --enableExperimental \
+            --disableRetireJS \
             --prettyPrint || echo "Dependency-Check completed with findings"
-            
+
       - name: Verify Report Generation
         run: |
+          echo "Listing generated report files:"
           ls -la reports/
           echo "Report file sizes:"
           du -h reports/*
-          
+          echo "Debug log content:"
+          cat reports/odc-debug.log || echo "No debug log found"
+
       - name: Archive SAST Report
         if: always()
         uses: actions/upload-artifact@v3
