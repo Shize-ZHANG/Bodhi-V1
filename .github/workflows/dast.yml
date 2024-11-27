@@ -18,11 +18,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16 # 使用 Node.js 16.x（任何小版本）
+          node-version: 16 
 
       - name: Install Dependencies
         run: |
-          rm -f package-lock.json # 确保只使用 Yarn
+          rm -f package-lock.json
           yarn install --frozen-lockfile
 
       - name: Start Vue.js Development Server
