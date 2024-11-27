@@ -1,4 +1,5 @@
 name: "sast-scan"
+
 on:
   push:
     branches:
